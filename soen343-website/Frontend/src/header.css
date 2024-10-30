@@ -1,0 +1,111 @@
+.navbar{
+    height: 4rem;
+    width: auto;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    justify-content: space-between;
+    position:sticky;
+    top: 0;
+    z-index:3;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.navTitleName{
+    color: #000000;
+    text-decoration: none;
+    height: 50px;
+    width: 150px;
+}
+
+.navTitleName img{
+    width: 120%; /* Ensure the image fills the container horizontally */
+    height: 120%; /* Ensure the image fills the container vertically */
+    object-fit: contain;
+}
+
+.desktopMenu{
+    color: #000000;
+}
+
+.desktopMenuListItem{
+    margin: 1rem;
+    cursor: pointer;
+    text-decoration: none; 
+}
+
+.desktopMenuListItem:hover{
+    color: #C2BBF0;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #C2BBF0;
+    font-weight: 700;
+    
+}
+
+.LogBtn,.SignBtn, .SignOutBtn,.contactus{
+    background-color: #F1FAEE;
+    color: #000000;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 3px;
+}
+
+.LogBtn:hover, .SignBtn:hover, .SignOutBtn:hover,.contactus:hover{
+    background-color: #354AF2;
+    color: #FFFEE0;
+    
+}
+
+.overlay{
+    width: 100vw;
+    height: 100vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    background: rgba(49,49,49,0.8);
+    z-index: 2;
+}
+
+.modal-content2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    z-index: 3;
+}
+
+.welcomeUser{
+    width: 260px;
+}
+
+
+.dropdownMenu {
+    position: relative;
+    display: inline-block;
+    padding: 1.6em 0;
+    /* width: 11em; */
+    min-width: 8em;
+  }
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    width: 6.9em;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+  
+.dropdownMenu:hover .dropdownContent {
+    display: block;}

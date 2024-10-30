@@ -1,3 +1,9 @@
+body {
+  background-color: rgba(0, 0, 255, 0.349);
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
 }
