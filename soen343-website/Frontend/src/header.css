@@ -14,6 +14,19 @@
     border-bottom-right-radius: 16px;
 }
 
+.menu-toggle {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+
 .navTitleName{
     color: #000000;
     text-decoration: none;
@@ -27,85 +40,82 @@
     object-fit: contain;
 }
 
-.desktopMenu{
+.site-title {
+    font-size: 1.5rem; /* Adjust font size for the title */
     color: #000000;
 }
 
-.desktopMenuListItem{
-    margin: 1rem;
-    cursor: pointer;
-    text-decoration: none; 
+.contactus {
+    margin-left: 20px; /* Space between the title and contact button */
 }
 
-.desktopMenuListItem:hover{
-    color: #C2BBF0;
-    padding-bottom: 0.5rem;
-    border-bottom: 3px solid #C2BBF0;
-    font-weight: 700;
-    
+/***** Right-side Auth Buttons *****/
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Pushes the buttons to the right */
 }
 
-.LogBtn,.SignBtn, .SignOutBtn,.contactus{
-    background-color: #F1FAEE;
-    color: #000000;
+.LogBtn{
+    background-color: #0D98BA;
+    color: white;
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin: 3px;
+    margin-left: 10px; /* Space between buttons */
 }
 
-.LogBtn:hover, .SignBtn:hover, .SignOutBtn:hover,.contactus:hover{
+.SignBtn,.contactus {
+    background-color: white;
+    color: #000000;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px; /* Space between buttons */
+}
+
+.LogBtn:hover, .SignBtn:hover,.contactus:hover {
     background-color: #354AF2;
     color: #FFFEE0;
-    
 }
 
-.overlay{
-    width: 100vw;
-    height: 100vw;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: fixed;
-    background: rgba(49,49,49,0.8);
-    z-index: 2;
-}
-
-.modal-content2 {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    z-index: 3;
-}
-
-.welcomeUser{
-    width: 260px;
-}
-
-
-.dropdownMenu {
-    position: relative;
-    display: inline-block;
-    padding: 1.6em 0;
-    /* width: 11em; */
-    min-width: 8em;
-  }
-
-.dropdownContent {
-    display: none;
+.aside-menu {
     position: absolute;
-    z-index: 1;
-    width: 6.9em;
-    left: 0;
-    right: 0;
-    margin: auto;
+    top: 50px;
+    left: 10px;
+    right: 10px;
+    width: 200px;
+    background-color: #f3f3f3;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 10;
 }
-  
-.dropdownMenu:hover .dropdownContent {
-    display: block;}
+
+.aside-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.aside-menu li {
+    padding: 10px;
+}
+
+.aside-menu li:hover {
+    background-color: #ddd;
+}
+
+.aside-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
