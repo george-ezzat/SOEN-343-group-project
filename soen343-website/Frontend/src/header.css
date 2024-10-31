@@ -19,55 +19,45 @@
     background: none;
     border: none;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 
 .logo-title {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 .navTitleName{
     color: #000000;
     text-decoration: none;
     height: 50px;
-    width: 150px;
+    width: 80px;
 }
 
 .navTitleName img{
-    width: 120%; /* Ensure the image fills the container horizontally */
+    width: 100%; /* Ensure the image fills the container horizontally */
     height: 120%; /* Ensure the image fills the container vertically */
     object-fit: contain;
 }
 
 .site-title {
-    font-size: 1.5rem; /* Adjust font size for the title */
-    color: #000000;
+    font-size: 1.5rem; 
+    color: #0D98BA ;
+    margin-left: -10px;
 }
 
 .contactus {
-    margin-left: 20px; /* Space between the title and contact button */
+    margin-left: 15px;
 }
 
-/***** Right-side Auth Buttons *****/
 .auth-buttons {
     display: flex;
     align-items: center;
-    margin-left: auto; /* Pushes the buttons to the right */
+    margin-left: auto; 
 }
 
-.LogBtn{
-    background-color: #0D98BA;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-left: 10px; /* Space between buttons */
-}
-
-.SignBtn,.contactus {
+.SignBtn,.contactus,.LogBtn {
     background-color: white;
     color: #000000;
     border: 1px solid black;
@@ -79,18 +69,19 @@
 }
 
 .LogBtn:hover, .SignBtn:hover,.contactus:hover {
-    background-color: #354AF2;
+    background-color: #0D98BA;
     color: #FFFEE0;
 }
 
 .aside-menu {
-    position: absolute;
+    position: fixed;
     top: 50px;
     left: 10px;
     right: 10px;
+    height: 100vh;
     width: 200px;
-    background-color: #f3f3f3;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    box-shadow: 2px 0 5px white;
     padding: 10px;
     border-radius: 5px;
     z-index: 10;
@@ -102,16 +93,28 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
+
+.aside-menu ul li {
+    border-bottom: 1px solid black; 
+    padding: 20px 0px;
+    text-align: center;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    display: block; 
+  }
+  
+  .aside-menu ul li:last-child {
+    border-bottom: none;
+  }
 
 .aside-menu li {
     padding: 10px;
 }
 
 .aside-menu li:hover {
-    background-color: #ddd;
+    background-color: #0D98BA;
 }
 
 .aside-menu a {
@@ -119,3 +122,17 @@
     color: #333;
     font-weight: bold;
 }
+
+.desktopMenuListItem {
+    display: block;
+    width: 100%;  
+    text-align: center; 
+    color: inherit; 
+    text-decoration: none; 
+  }
+
+  .desktopMenuListItem.active {
+    background-color: #0D98BA;
+    color: white; 
+}
+
