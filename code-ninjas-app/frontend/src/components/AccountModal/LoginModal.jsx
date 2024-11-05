@@ -30,6 +30,7 @@ const AccountModal = ({ isOpen, onClose }) => {
             placeholder='Email'
             required
           />
+          <input type="password" placeholder='Password' required />
           <button className='continue-button' type="submit">Continue</button>
         </form>
       </div>

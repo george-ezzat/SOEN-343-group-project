@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink  } from 'react-router-dom';
 import logo from '../../Images/Logo.webp';
 import './Header.css';
-import AccountModal from '../AccountModal/AccountModal';
+import AccountModal from '../AccountModal/LoginModal';
 import SignUpModal from '../AccountModal/SignUpModal';
 
 function Header() {

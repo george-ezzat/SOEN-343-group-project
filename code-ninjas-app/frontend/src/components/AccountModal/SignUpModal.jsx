@@ -30,6 +30,11 @@ const SignUpModal = ({ isOpen, onClose }) => {
             placeholder='Email'
             required
           />
+          <input type="text" placeholder='First Name' required />
+          <input type="text" placeholder='Last Name' required />
+          <input type="password" placeholder='Password' required />
+          <input type="password" placeholder='Confirm Password' required />
+          
           <button className='continue-button' type="submit">Continue</button>
         </form>
       </div>
