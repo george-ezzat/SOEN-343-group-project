@@ -1,24 +1,44 @@
 import React, { useState } from 'react';
-import './Header.css';
 import { NavLink  } from 'react-router-dom';
 import logo from '../../Images/Logo.webp';
+import './Header.css';
+import AccountModal from '../AccountModal/LoginModal';
+import SignUpModal from '../AccountModal/SignUpModal';
 
 function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const toggleSideMenu = () => {
+    setIsSideMenuOpen(!isSideMenuOpen);
+  };
+
+  //For the Sign in / Sign up Modal
+  const openAccountModal = () => {
+    setIsAccountModalOpen(true);
+  };
+  const closeAccountModal = () => {
+    setIsAccountModalOpen(false);
+  };
+
+  const openSignUpModal = () => {
+    setIsSignUpModalOpen(true);
+  };
+
+  const closeSignUpModal = () => {
+    setIsSignUpModalOpen(false);
   };
 
   return (
     <nav className="navbar">
-      <button className="menu-toggle" onClick={toggleMenu}>
+      <button className="menu-toggle" onClick={toggleSideMenu}>
         &#9776; 
       </button>
 
       <div className="logo-title">
         <NavLink  to="/" className="navTitleName">
-          <img src={logo} alt="Logo" />
+          <img src={logo} className="logo-image" alt="Logo" />
         </NavLink >
         <span className="site-title">TurboTrucks</span>
       </div>
@@ -27,11 +47,14 @@ function Header() {
       
       
       <div className="auth-buttons">
-        <button className="LogBtn">Log In</button>
-        <button className="SignBtn">Sign In</button>
+        <button className="LoginBtn" onClick={openAccountModal}>Log In</button>
+        <button className="SignupBtn" onClick={openSignUpModal}>Sign Up</button>
       </div>
 
-      {isOpen && (
+      {isAccountModalOpen && <AccountModal isOpen={isAccountModalOpen} onClose={closeAccountModal} />}
+      {isSignUpModalOpen && <SignUpModal isOpen={isSignUpModalOpen} onClose={closeSignUpModal} />}
+
+      {isSideMenuOpen && (
         <aside className="aside-menu">
           <ul>
           <li>

@@ -10,8 +10,6 @@
     position:sticky;
     top: 0;
     z-index:3;
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
 }
 
 .menu-toggle {
@@ -37,7 +35,7 @@
 
 .navTitleName img{
     width: 100%; /* Ensure the image fills the container horizontally */
-    height: 120%; /* Ensure the image fills the container vertically */
+    height: 100%; /* Ensure the image fills the container vertically */
     object-fit: contain;
 }
 
@@ -57,18 +55,18 @@
     margin-left: auto; 
 }
 
-.SignBtn,.contactus,.LogBtn {
+.LoginBtn,.SignupBtn,.contactus {
     background-color: white;
     color: #000000;
-    border: 1px solid black;
-    border-radius: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: 10px; /* Space between buttons */
+    margin-left: 10px;
 }
 
-.LogBtn:hover, .SignBtn:hover,.contactus:hover {
+.LoginBtn:hover,.SignupBtn:hover,.contactus:hover {
     background-color: #0D98BA;
     color: #FFFEE0;
 }
@@ -135,4 +133,3 @@
     background-color: #0D98BA;
     color: white; 
 }
-
