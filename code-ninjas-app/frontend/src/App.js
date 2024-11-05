@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css';
-import Home from './Home.tsx'
-import Tracking from "./Ordertracking.tsx"
-import AboutUs from "./AboutUs.tsx"
-import Purchase from "./product_purchase.tsx"
+import Home from './components/Home/Home.jsx'
+import Tracking from './components/OrderTracking/OrderTracking.jsx'
+import AboutUs from './components/AboutUs/AboutUs.jsx'
+import Purchase from './components/ProductPurchase/ProductPurchase.jsx'
 
 function App() {
   return (
