@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AccountModal.css';
 
-const AccountModal = ({ isOpen, onClose }) => {
+const SignUpModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
   
   const handleEmailChange = (e) => {
@@ -19,7 +19,7 @@ const AccountModal = ({ isOpen, onClose }) => {
     <div className="modal-overlay">
       <div className="modal-content">
         <button className="close-button" onClick={onClose}>X</button>
-        <p>Log in to your account</p>
+        <p>Sign Up</p>
         <form onSubmit={handleSubmit}>
           <label htmlFor="email"></label>
           <input
@@ -37,4 +37,4 @@ const AccountModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default AccountModal;
+export default SignUpModal;

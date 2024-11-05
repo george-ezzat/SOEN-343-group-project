@@ -55,7 +55,7 @@
     margin-left: auto; 
 }
 
-.SignBtn,.contactus {
+.LoginBtn,.SignupBtn,.contactus {
     background-color: white;
     color: #000000;
     border: 1px solid #ccc;
@@ -66,7 +66,7 @@
     margin-left: 10px;
 }
 
-.SignBtn:hover,.contactus:hover {
+.LoginBtn:hover,.SignupBtn:hover,.contactus:hover {
     background-color: #0D98BA;
     color: #FFFEE0;
 }
