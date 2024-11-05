@@ -1,9 +1,8 @@
 import React from 'react';
-import './about.css';
-import Header from './header.jsx';
+import './AboutUs.css';
+import Header from '../Header/Header.jsx';
 
-const AboutUs: React.FC = () => {
-
+const AboutUs = () => {
     return (
         <>
             <Header />
