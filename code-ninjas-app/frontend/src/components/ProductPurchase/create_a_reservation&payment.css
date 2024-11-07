@@ -1,0 +1,56 @@
+.outlined_fields {
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  padding: 8px;
+  outline: none;
+}
+.reservationTable {
+  width: 50%;
+  margin: 0 auto;
+  margin-left: 5%;
+}
+.submit {
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  padding: 8px;
+  outline: none;
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.reset {
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  padding: 8px;
+  outline: none;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+}
+.reservationImage {
+  border-radius: 30px;
+  margin: 0 20px;
+  height: 30em;
+}
+
+.tab_payment {
+  width: 50%;
+  margin: 0 auto;
+  margin-left: 25%;
+}
+
+.branchDropDown {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 12px;
+  outline: none;
+  width: 17em;
+  padding: 8px 5px;
+}
+
+.reservationBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
