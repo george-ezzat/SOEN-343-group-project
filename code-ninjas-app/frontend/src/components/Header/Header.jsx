@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
-import { NavLink  } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import logo from '../../Images/Logo.webp';
 import './Header.css';
 import AccountModal from '../AccountModal/LoginModal';
 import SignUpModal from '../AccountModal/SignUpModal';
+import ChatModal from '../AccountModal/Chatbot';
 
 function Header() {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
   };
 
-  //For the Sign in / Sign up Modal
   const openAccountModal = () => {
     setIsAccountModalOpen(true);
   };
@@ -25,27 +26,32 @@ function Header() {
   const openSignUpModal = () => {
     setIsSignUpModalOpen(true);
   };
-
   const closeSignUpModal = () => {
     setIsSignUpModalOpen(false);
+  };
+
+  const openChatModal = () => {
+    setIsChatModalOpen(true);
+  };
+  const closeChatModal = () => {
+    setIsChatModalOpen(false);
   };
 
   return (
     <nav className="navbar">
       <button className="menu-toggle" onClick={toggleSideMenu}>
-        &#9776; 
+        &#9776;
       </button>
 
       <div className="logo-title">
-        <NavLink  to="/" className="navTitleName">
+        <NavLink to="/" className="navTitleName">
           <img src={logo} className="logo-image" alt="Logo" />
-        </NavLink >
+        </NavLink>
         <span className="site-title">TurboTrucks</span>
       </div>
 
-      <button className="contactus">Contact Us</button>
-      
-      
+      <button className="contactus" onClick={openChatModal}>Contact Us</button>
+
       <div className="auth-buttons">
         <button className="LoginBtn" onClick={openAccountModal}>Log In</button>
         <button className="SignupBtn" onClick={openSignUpModal}>Sign Up</button>
@@ -53,11 +59,12 @@ function Header() {
 
       {isAccountModalOpen && <AccountModal isOpen={isAccountModalOpen} onClose={closeAccountModal} />}
       {isSignUpModalOpen && <SignUpModal isOpen={isSignUpModalOpen} onClose={closeSignUpModal} />}
+      {isChatModalOpen && <ChatModal isOpen={isChatModalOpen} onClose={closeChatModal} />}
 
       {isSideMenuOpen && (
         <aside className="aside-menu">
           <ul>
-          <li>
+            <li>
               <NavLink to="/" exact className="desktopMenuListItem" activeClassName="active">Home</NavLink>
             </li>
             <li>

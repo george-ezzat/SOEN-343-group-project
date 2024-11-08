@@ -7,8 +7,10 @@ const Tracking = () => {
             <Header/>
             <div>
                 <h1>Order Tracking</h1>
-                <p>Track your order status here.</p>
-                {/* Placeholder for tracking input or order status display */}
+                <form>
+                    <label for="tracking">Tracking number</label>
+                    <input  type="text" id='tracking' name='tracking' className="outlined_fields" placeholder='Enter your tracking number'required/>                
+                </form>
             </div>
         </>
     );
