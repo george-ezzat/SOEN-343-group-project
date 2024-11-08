@@ -55,9 +55,20 @@
     margin-left: auto; 
 }
 
-.LoginBtn,.SignupBtn,.contactus {
+.SignupBtn,.contactus {
     background-color: white;
     color: #000000;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+}
+
+.LoginBtn{
+    background-color:#0D98BA;
+    color:white;
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 10px 20px;

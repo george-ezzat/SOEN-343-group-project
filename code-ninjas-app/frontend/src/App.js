@@ -5,7 +5,7 @@ import Tracking from './components/OrderTracking/OrderTracking.jsx'
 import AboutUs from './components/AboutUs/AboutUs.jsx'
 import Purchase from './components/ProductPurchase/ProductPurchase.jsx'
 import Payment from './components/ProductPurchase/PaymentForm.jsx'
-import TransactionApproved from './components/ProductPurchase/TransactionApproved.js'
+import TransactionApproved from './components/ProductPurchase/TransactionApproved.jsx'
 
 function App() {
   return (
