@@ -13,25 +13,49 @@ const ProductPurchase = () => {
       }
     
     return (
-        <>
+          <>
+            <Header/>
             <div className='background_purchase'>
-                <Header/>
                 <h1>Product Purchase</h1>
-                <p>Welcome to the Product Purchase page.</p>
-                <form onSubmit={handleSubmit}>
-                <div>
-              <input
-                type='submit'
-                value='Submit Reservation'
-                className='submit'
-              />
-              <input
-                type='reset'
-                value='Reset'
-                className='reset'
-              />
-            </div>
+                <div className='QuoteBody'>
+                  <form onSubmit={handleSubmit}>
+                  <table className='reservationTable'>
+                  <tbody>
+                    <tr>
+                      <th>Pickup location:</th>
+                        <td>
+                         <input type='text' name='pickupLocation' className='outlined_fields' required/>
+                        </td>
+                    </tr>
+                    <tr>
+                      <th>Dropof location:</th>
+                        <td>
+                          <input type='text' name='pickupLocation' className='outlined_fields' required/>
+                        </td>
+                    </tr>
+                    <tr>
+                      <th>Order Weight (in KG):</th>
+                      <td>
+                        <input type='number' name='weight' className='outlined_fields' min={0} step="0.01" required/>
+                      </td>
+                    </tr>
+                  </tbody>
+                  </table>
+                  <br />
+                  <div className='button-container'>
+                    <input
+                    type='submit'
+                    value='Submit Quote'
+                    className='submit'
+                    />
+                    <input
+                    type='reset'
+                    value='Reset'
+                    className='reset'
+                  />
+                  </div>
                 </form>
+              </div>  
             </div>
         </>
     );

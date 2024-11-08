@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React, { useState } from 'react';
 import './Chatbot.css';
 
 function ChatModal({ isOpen, onClose }) {
@@ -9,7 +9,7 @@ function ChatModal({ isOpen, onClose }) {
   
     const handleSendMessage = () => {
       if (message.trim()) {
-        setMessages([...messages, message]);
+        setMessages([...messages, { text: message, isUser: true }]);
         setMessage(''); // Clear the input field
       }
     };
@@ -23,7 +23,12 @@ function ChatModal({ isOpen, onClose }) {
             <div className="chat-area">
               {messages.length > 0 ? (
                 messages.map((msg, index) => (
-                  <p key={index} className="chat-message">{msg}</p>
+                  <p 
+                    key={index} 
+                    className={`chat-message ${msg.isUser ? 'user-message' : 'bot-message'}`}
+                  >
+                    {msg.text}
+                  </p>
                 ))
               ) : (
                 <p className="placeholder">Start typing your message...</p>
@@ -43,6 +48,6 @@ function ChatModal({ isOpen, onClose }) {
         </div>
       </div>
     );
-  }
-  
-  export default ChatModal;
+}
+
+export default ChatModal;

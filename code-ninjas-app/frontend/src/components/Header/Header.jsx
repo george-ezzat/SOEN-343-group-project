@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import logo from '../../Images/Logo.webp';
+import AI from '../../Images/bot_4712066.png'
 import './Header.css';
 import AccountModal from '../AccountModal/LoginModal';
 import SignUpModal from '../AccountModal/SignUpModal';
@@ -51,6 +52,8 @@ function Header() {
       </div>
 
       <button className="contactus" onClick={openChatModal}>Contact Us</button>
+      
+      <img src={AI} className="AI" alt="AI"/>
 
       <div className="auth-buttons">
         <button className="LoginBtn" onClick={openAccountModal}>Log In</button>

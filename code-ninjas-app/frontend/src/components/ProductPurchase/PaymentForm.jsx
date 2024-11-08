@@ -48,7 +48,6 @@ const CarRentalPayment = () => {
     
   }
 
-
   return (
     <div className="background_payment">
       <h1>Payment Information</h1>
@@ -60,7 +59,7 @@ const CarRentalPayment = () => {
               <input
                 type="text"
                 className="outlined_fields"
-                required
+                readOnly
               />
             </td>
           </tr>
@@ -75,7 +74,7 @@ const CarRentalPayment = () => {
           onChange={(e) => setCardholderName(e.target.value)}
           required 
           />
-            </td>
+          </td>
           </tr>
           <br />
           <tr>
@@ -136,7 +135,7 @@ const CarRentalPayment = () => {
           </tr>
         </table>
         <br />
-        <div>
+        <div className="button-container">
           <input type="submit" value="Make Payment" className="submit" onClick={(e) => {e.preventDefault();
             if (validateForm())transactionapproved()}}/>
           <input type="reset" value="Reset" className="reset" />
