@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import logo from '../../Images/Logo.webp';
 import './Header.css';
 import AccountModal from '../AccountModal/LoginModal';
@@ -11,6 +12,16 @@ function Header() {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
@@ -53,8 +64,14 @@ function Header() {
       <button className="contactus" onClick={openChatModal}>Contact Us</button>
 
       <div className="auth-buttons">
-        <button className="LoginBtn" onClick={openAccountModal}>Log In</button>
-        <button className="SignupBtn" onClick={openSignUpModal}>Sign Up</button>
+        {user ? (
+          <button className="user-email">{user.email}</button>
+        ) : (
+          <>
+            <button className="LoginBtn" onClick={openAccountModal}>Log In</button>
+            <button className="SignupBtn" onClick={openSignUpModal}>Sign Up</button>
+          </>
+        )}
       </div>
 
       {isAccountModalOpen && <AccountModal isOpen={isAccountModalOpen} onClose={closeAccountModal} />}

@@ -12,7 +12,6 @@ const SignUpModal = ({ isOpen, onClose }) => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
     setLoading(true);
     setErrorMessage('');
     setSuccessMessage('');
@@ -25,7 +24,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
       setPassword('');
 
       setSuccessMessage('Sign up successful!');
-
+      console.log('User signed up: ', user);
     } catch (error) {
       setErrorMessage(error.message);
       console.log('Error: ', error.message);
