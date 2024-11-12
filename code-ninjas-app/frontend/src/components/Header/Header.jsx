@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import logo from '../../Images/Logo.webp';
 import './Header.css';
 import AccountModal from '../AccountModal/LoginModal';
@@ -22,6 +22,15 @@ function Header() {
 
     return () => unsubscribe();
   }, []);
+
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      setUser(null);
+    }).catch((error) => {
+      console.error('Error signing out: ', error);
+    });
+  };
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
@@ -65,7 +74,7 @@ function Header() {
 
       <div className="auth-buttons">
         {user ? (
-          <button className="user-email">{user.email}</button>
+          <button className="user-email" onClick={handleLogout}>{user.email}</button>
         ) : (
           <>
             <button className="LoginBtn" onClick={openAccountModal}>Log In</button>
