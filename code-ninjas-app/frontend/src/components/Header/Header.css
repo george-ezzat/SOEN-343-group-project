@@ -72,7 +72,7 @@
     margin-left: 10px;
 }
 
-.LoginBtn{
+.LoginBtn,.user-email{
     background-color:#0D98BA;
     color:white;
     border: 1px solid #ccc;
