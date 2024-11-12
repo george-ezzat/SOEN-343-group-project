@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import logo from '../../Images/Logo.webp';
 import AI from '../../Images/bot_4712066.png'
 import './Header.css';
@@ -12,6 +13,25 @@ function Header() {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      setUser(null);
+    }).catch((error) => {
+      console.error('Error signing out: ', error);
+    });
+  };
 
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
@@ -56,8 +76,14 @@ function Header() {
       <img src={AI} className="AI" alt="AI"/>
 
       <div className="auth-buttons">
-        <button className="LoginBtn" onClick={openAccountModal}>Log In</button>
-        <button className="SignupBtn" onClick={openSignUpModal}>Sign Up</button>
+        {user ? (
+          <button className="user-email" onClick={handleLogout}>{user.email}</button>
+        ) : (
+          <>
+            <button className="LoginBtn" onClick={openAccountModal}>Log In</button>
+            <button className="SignupBtn" onClick={openSignUpModal}>Sign Up</button>
+          </>
+        )}
       </div>
 
       {isAccountModalOpen && <AccountModal isOpen={isAccountModalOpen} onClose={closeAccountModal} />}
