@@ -12,14 +12,6 @@
     z-index:3;
 }
 
-.menu-toggle {
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-right: 0px;
-}
-
 .logo-title {
     display: flex;
     align-items: center;
@@ -42,13 +34,13 @@
 .AI{
     width: 50px; 
     height: 50px;
-    padding-left: 5px;
+    padding-left: 9px;
 }
 
 .site-title {
     font-size: 1.5rem; 
     color: #0D98BA ;
-    margin-left: -10px;
+    margin-left: -12px;
 }
 
 .contactus {
@@ -88,65 +80,21 @@
     color: #FFFEE0;
 }
 
-.aside-menu {
-    position: fixed;
-    top: 50px;
-    left: 10px;
-    right: 10px;
-    height: 100vh;
-    width: 200px;
-    background-color: white;
-    box-shadow: 2px 0 5px white;
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 10;
+.menu{
+    padding: 20px; 
 }
 
-.aside-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
-}
-
-.aside-menu ul li {
-    border-bottom: 1px solid black; 
-    padding: 20px 0px;
-    text-align: center;
-    width: 100%;
-    transition: background-color 0.3s ease;
-    display: block; 
-  }
-  
-  .aside-menu ul li:last-child {
-    border-bottom: none;
-  }
-
-.aside-menu li {
-    padding: 10px;
-}
-
-.aside-menu li:hover {
-    background-color: #0D98BA;
-}
-
-.aside-menu a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-
-.desktopMenuListItem {
-    display: block;
-    width: 100%;  
-    text-align: center; 
-    color: inherit; 
+.desktopMenuListItem{
+    margin: 1rem;
+    cursor: pointer;
     text-decoration: none; 
-  }
+    color: #000000;
+}
 
-  .desktopMenuListItem.active {
-    background-color: #0D98BA;
-    color: white; 
+.desktopMenuListItem:hover{
+    color: #0D98BA;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #0D98BA;
+    font-weight: 700;
+    
 }

@@ -1,26 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { getDoc, doc } from 'firebase/firestore';
 import logo from '../../Images/Logo.webp';
 import AI from '../../Images/bot_4712066.png'
 import './Header.css';
 import AccountModal from '../AccountModal/LoginModal';
 import SignUpModal from '../AccountModal/SignUpModal';
 import ChatModal from '../AccountModal/Chatbot';
+import { db } from '../../firebase.js';  // Import your Firestore instance
 
 function Header() {
-  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUser(user);
+        try {
+          const userRef = doc(db, "users", user.uid);  
+          const userDoc = await getDoc(userRef);
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            setIsAdmin(userData.isAdmin || false); 
+          }
+        } catch (error) {
+          console.error("Error fetching user data: ", error);
+        }
+      } else {
+        setUser(null);
+        setIsAdmin(false); 
+      }
     });
-
+  
     return () => unsubscribe();
   }, []);
 
@@ -28,16 +45,13 @@ function Header() {
     const auth = getAuth();
     signOut(auth).then(() => {
       setUser(null);
+      setIsAdmin(false);
     }).catch((error) => {
       console.error('Error signing out: ', error);
     });
   };
 
-  const toggleSideMenu = () => {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  };
-
-  const openAccountModal = () => {
+ const openAccountModal = () => {
     setIsAccountModalOpen(true);
   };
   const closeAccountModal = () => {
@@ -60,20 +74,25 @@ function Header() {
 
   return (
     <nav className="navbar">
-      <button className="menu-toggle" onClick={toggleSideMenu}>
-        &#9776;
-      </button>
-
       <div className="logo-title">
-        <NavLink to="/" className="navTitleName">
+        <Link to="/" className="navTitleName">
           <img src={logo} className="logo-image" alt="Logo" />
-        </NavLink>
+        </Link>
         <span className="site-title">TurboTrucks</span>
       </div>
 
       <button className="contactus" onClick={openChatModal}>Contact Us</button>
-      
       <img src={AI} className="AI" alt="AI"/>
+
+      <div className="menu">
+        <Link to="/" exact className="desktopMenuListItem">Home</Link>
+        <Link to="/tracking" className="desktopMenuListItem">Tracking Your Order</Link>
+        <Link to="/product_purchase" className="desktopMenuListItem">Buy a Product</Link>
+        <Link to="/aboutus" className="desktopMenuListItem">About Us</Link>
+        {isAdmin && (
+          <Link to="/adminview" className="desktopMenuListItem">Admin Management</Link>
+        )}
+      </div>
 
       <div className="auth-buttons">
         {user ? (
@@ -89,25 +108,6 @@ function Header() {
       {isAccountModalOpen && <AccountModal isOpen={isAccountModalOpen} onClose={closeAccountModal} />}
       {isSignUpModalOpen && <SignUpModal isOpen={isSignUpModalOpen} onClose={closeSignUpModal} />}
       {isChatModalOpen && <ChatModal isOpen={isChatModalOpen} onClose={closeChatModal} />}
-
-      {isSideMenuOpen && (
-        <aside className="aside-menu">
-          <ul>
-            <li>
-              <NavLink to="/" exact className="desktopMenuListItem" activeClassName="active">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/tracking" className="desktopMenuListItem" activeClassName="active">Tracking Your Order</NavLink>
-            </li>
-            <li>
-              <NavLink to="/product_purchase" className="desktopMenuListItem" activeClassName="active">Buy a Product</NavLink>
-            </li>
-            <li>
-              <NavLink to="/aboutus" className="desktopMenuListItem" activeClassName="active">About Us</NavLink>
-            </li>
-          </ul>
-        </aside>
-      )}
     </nav>
   );
 }
