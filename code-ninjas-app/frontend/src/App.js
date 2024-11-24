@@ -7,6 +7,7 @@ import Purchase from './components/ProductPurchase/ProductPurchase.jsx'
 import Payment from './components/ProductPurchase/PaymentForm.jsx'
 import TransactionApproved from './components/ProductPurchase/TransactionApproved.jsx'
 import AdminView from './components/Admin/AdminView.jsx'
+import Delivery from './components/Delivery/Delivery.jsx'
 // import ModifyUsers from '../pages/ModifyUsers.tsx'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path='/payment' element={<Payment />} />
           <Route path='/transactionapproved' element={<TransactionApproved />} />
           <Route path='/adminview' element={<AdminView />} />
+          <Route path='/delivery' element={<Delivery />} />
           {/* <Route path='/modifyusers' element={<ModifyUsers />} /> */}
         </Routes>
       </BrowserRouter>
