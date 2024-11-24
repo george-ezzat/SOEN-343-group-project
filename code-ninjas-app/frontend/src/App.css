@@ -1,11 +1,34 @@
 body {
-  background-color: #0D98BA;
+  background-color: white;
+  /*background-color: #0D98BA;*/
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+.top-background {
+  position: relative;
+  width: 100%;
+  height: 700px; /* Adjust the height as needed */
+  overflow: hidden;
+}
+
+.top-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('Images/Untitled design.png');
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px); /* Adjust the blur intensity as needed */
 }
 
 .App {
   text-align: center;
+  min-height: 100%;
 }
 
 .App-logo {
