@@ -73,7 +73,7 @@ function Header() {
   };
 
   return (
-    <nav className="navbar">
+    <div className="header-container">
       <div className="logo-title">
         <Link to="/" className="navTitleName">
           <img src={logo} className="logo-image" alt="Logo" />
@@ -81,17 +81,19 @@ function Header() {
         <span className="site-title">TurboTrucks</span>
       </div>
 
-      <button className="contactus" onClick={openChatModal}>Contact Us</button>
-      <img src={AI} className="AI" alt="AI"/>
-
       <div className="menu">
         <Link to="/" exact className="desktopMenuListItem">Home</Link>
+        <Link to="/delivery" className="desktopMenuListItem">Start a Delivery</Link>
         <Link to="/tracking" className="desktopMenuListItem">Tracking Your Order</Link>
-        <Link to="/product_purchase" className="desktopMenuListItem">Buy a Product</Link>
         <Link to="/aboutus" className="desktopMenuListItem">About Us</Link>
         {isAdmin && (
           <Link to="/adminview" className="desktopMenuListItem">Admin Management</Link>
         )}
+      </div>
+
+      <div className='chatbot-container'>
+        <button className="contactus" onClick={openChatModal}>Contact Us</button>
+        <img src={AI} className="AI" alt="AI"/>
       </div>
 
       <div className="auth-buttons">
@@ -108,7 +110,7 @@ function Header() {
       {isAccountModalOpen && <AccountModal isOpen={isAccountModalOpen} onClose={closeAccountModal} />}
       {isSignUpModalOpen && <SignUpModal isOpen={isSignUpModalOpen} onClose={closeSignUpModal} />}
       {isChatModalOpen && <ChatModal isOpen={isChatModalOpen} onClose={closeChatModal} />}
-    </nav>
+    </div>
   );
 }
 
