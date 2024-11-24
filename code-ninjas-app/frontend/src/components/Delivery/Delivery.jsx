@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../firebase.js';  // Import your Firestore instance
 import "./Delivery.css";
 import Header from "../Header/Header";
 
@@ -8,18 +10,26 @@ export default function Delivery() {
   const [dimensions, setDimensions] = useState({ length: '', width: '', height: '' });
   const [weight, setWeight] = useState('');
   const [shippingType, setShippingType] = useState('free');
+  const [deliveryResponse, setDeliveryResponse] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log({
+    const delivery = {
       pickup,
       dropoff,
       dimensions,
       weight,
       shippingType,
-    });
-  };
+    };
+
+    try {
+        const docRef = await addDoc(collection(db, 'deliveries'), delivery);
+        console.log('Delivery created with ID:', docRef.id);
+        setDeliveryResponse({ id: docRef.id, ...delivery });
+    } catch (error) {
+        console.error('Error creating delivery:', error);
+    }
+};
 
   return (
     <>
@@ -130,7 +140,13 @@ export default function Delivery() {
             </div>
             <button type="submit" className="submit-btn">Create Delivery</button>
           </form>
+          {deliveryResponse && (
+          <div className="delivery-response">
+            <h3>Delivery Created Successfully</h3>
+            <pre>{JSON.stringify(deliveryResponse, null, 2)}</pre>
+          </div>
+          )}
       </div>
     </>
   );
-}
+};
