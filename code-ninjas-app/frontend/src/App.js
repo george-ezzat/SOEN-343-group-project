@@ -8,9 +8,11 @@ import Payment from './components/ProductPurchase/PaymentForm.jsx'
 import TransactionApproved from './components/ProductPurchase/TransactionApproved.jsx'
 import AdminView from './components/Admin/AdminView.jsx'
 import Delivery from './components/Delivery/Delivery.jsx'
+
 // import ModifyUsers from '../pages/ModifyUsers.tsx'
 
 function App() {
+
   return (
     <div className="App">
        <BrowserRouter>
@@ -25,7 +27,7 @@ function App() {
           <Route path='/delivery' element={<Delivery />} />
           {/* <Route path='/modifyusers' element={<ModifyUsers />} /> */}
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> 
     </div>
   );
 }
