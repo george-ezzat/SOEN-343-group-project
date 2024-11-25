@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { db } from "../../firebase.js";
+import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import "./ModifyUsers.css";
 import Header from "../Header/Header";
 import "../Header/Header.css";
@@ -13,188 +14,121 @@ export default function ModifyUsers() {
     return <title>Modify Users</title>;
   }
 
-  function deleteUser(userInfo) {
-    axios
-      .delete("http://localhost:8080/users/" + userInfo._id)
-      .then((res) => {
-        if (res.status === 200) {
-          window.location.reload();
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
+  // Fetch all users from Firestore
+  useEffect(() => {
+    const fetchUsers = async () => {
+      setLoading(true);
+      try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+        const usersData = querySnapshot.docs.map((doc) => ({
+          id: doc.id, // Firestore document ID
+          ...doc.data(),
+        }));
+        setAllUsers(usersData);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        setLoading(false);
+      }
+    };
 
-  function handleSubmit(event, newUserInfo) {
+    fetchUsers();
+  }, []);
+
+  // Update a user in Firestore
+  const handleSubmit = async (event, updatedUserInfo) => {
     event.preventDefault();
-    axios
-      .post("http://localhost:8080/updateUser", newUserInfo)
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(res);
-          window.location.reload();
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
+    try {
+      const userDoc = doc(db, "users", updatedUserInfo.id);
+      await updateDoc(userDoc, updatedUserInfo);
+      alert("User updated successfully!");
+      window.location.reload(); // Reload to reflect changes
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
 
-  function toggleCreateUserModal() {
+  // Delete a user from Firestore
+  const deleteUser = async (userInfo) => {
+    try {
+      const userDoc = doc(db, "users", userInfo.id);
+      await deleteDoc(userDoc);
+      alert("User deleted successfully!");
+      setAllUsers(allUsers.filter((user) => user.id !== userInfo.id)); // Update UI
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+
+  // Toggle create user modal
+  const toggleCreateUserModal = () => {
     setCreateUserModal(!createUserModal);
-  }
+  };
 
+  // User row component
   function UserRow({ userInfo }) {
-    userInfo.newPass = "";
-    let updatedUserInfo = userInfo;
+    const updatedUserInfo = { ...userInfo };
 
     return (
-      <>
-        <tr>
-          <td className="hiddenForm">
-            <form
-              id={userInfo._id}
-              onSubmit={(e) => handleSubmit(e, updatedUserInfo)}
-            />
-          </td>
-          <td className="fieldInputs">
-            <input
-              type="text"
-              placeholder={userInfo.firstName}
-              className="inputBoxes"
-              form={userInfo._id}
-              name="firstName"
-              onChange={(e) => (updatedUserInfo.firstName = e.target.value)}
-              autoComplete="off"
-            />
-          </td>
-          <td className="fieldInputs">
-            <input
-              type="text"
-              placeholder={userInfo.lastName}
-              className="inputBoxes"
-              form={userInfo._id}
-              name="lastName"
-              onChange={(e) => (updatedUserInfo.lastName = e.target.value)}
-              autoComplete="off"
-            />
-          </td>
-          <td className="fieldInputs">
-            <input
-              type="text"
-              placeholder={userInfo.email}
-              className="inputBoxes"
-              form={userInfo._id}
-              name="email"
-              onChange={(e) => (updatedUserInfo.email = e.target.value)}
-              autoComplete="off"
-            />
-          </td>
-          <td className="fieldInputs">
-            <input
-              type="text"
-              placeholder={userInfo.dob}
-              className="inputBoxes"
-              form={userInfo._id}
-              name="dob"
-              onChange={(e) => (updatedUserInfo.dob = e.target.value)}
-              autoComplete="off"
-            />
-          </td>
-          <td className="fieldInputs">
-            <input
-              type="text"
-              placeholder={userInfo.licenseNum}
-              className="inputBoxes"
-              form={userInfo._id}
-              name="licenseNum"
-              onChange={(e) => (updatedUserInfo.licenseNum = e.target.value)}
-              autoComplete="off"
-            />
-          </td>
-          <td className="fieldInputs">
-            <input
-              type="text"
-              placeholder={userInfo.address}
-              className="inputBoxes"
-              form={userInfo._id}
-              name="address"
-              onChange={(e) => (updatedUserInfo.address = e.target.value)}
-              autoComplete="off"
-            />
-          </td>
-          <td className="fieldInputs">
-            <input
-              type="tel"
-              placeholder={userInfo.contactNum}
-              className="inputBoxes"
-              form={userInfo._id}
-              name="contactNum"
-              onChange={(e) => (updatedUserInfo.contactNum = e.target.value)}
-              autoComplete="off"
-            />
-          </td>
-          <td className="fieldInputs">
-            <input
-              type="text"
-              placeholder="Enter a new password"
-              className="inputBoxes"
-              form={userInfo._id}
-              name="password"
-              onChange={(e) => (updatedUserInfo.newPass = e.target.value)}
-              autoComplete="off"
-            />
-          </td>
-          <td className="fieldInputs">
-            <select
-              className="fieldInputs"
-              onChange={(e) => {
-                updatedUserInfo.accType = e.target.value;
-              }}
-              form={userInfo._id}
-              defaultValue={userInfo.accType}
-            >
-              <option value="admin">Admin</option>
-              <option value="customer">Regular Customer</option>
-            </select>
-          </td>
-          <td className="confirmation">
-            <input
-              type="submit"
-              className="submitButton"
-              id="updateButton"
-              form={userInfo._id}
-              value="Update"
-            />
-            <button
-              className="submitButton"
-              id="deleteButton"
-              form={userInfo._id}
-              onClick={() => deleteUser(userInfo)}
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      </>
+      <tr>
+        <td className="fieldInputs">
+          <input
+            type="text"
+            placeholder={userInfo.firstName}
+            className="inputBoxes"
+            onChange={(e) => (updatedUserInfo.firstName = e.target.value)}
+          />
+        </td>
+        <td className="fieldInputs">
+          <input
+            type="text"
+            placeholder={userInfo.lastName}
+            className="inputBoxes"
+            onChange={(e) => (updatedUserInfo.lastName = e.target.value)}
+          />
+        </td>
+        <td className="fieldInputs">
+          <input
+            type="email"
+            placeholder={userInfo.email}
+            className="inputBoxes"
+            onChange={(e) => (updatedUserInfo.email = e.target.value)}
+          />
+        </td>
+        <td className="fieldInputs">
+          <input
+            type="password"
+            placeholder="Enter new password"
+            className="inputBoxes"
+            onChange={(e) => (updatedUserInfo.password = e.target.value)}
+          />
+        </td>
+        <td className="fieldInputs">
+          <select
+            defaultValue={userInfo.accType}
+            onChange={(e) => (updatedUserInfo.accType = e.target.value)}
+          >
+            <option value="admin">Admin</option>
+            <option value="customer">Regular Customer</option>
+          </select>
+        </td>
+        <td className="confirmation">
+          <button
+            className="submitButton"
+            onClick={(e) => handleSubmit(e, updatedUserInfo)}
+          >
+            Update
+          </button>
+          <button
+            className="submitButton"
+            onClick={() => deleteUser(userInfo)}
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
     );
   }
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/users")
-      .then((res) => {
-        if (res.status === 200) {
-          setAllUsers(res.data);
-          setLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setLoading(false);
-      });
-  }, []);
 
   if (loading) {
     return (
@@ -221,24 +155,15 @@ export default function ModifyUsers() {
             <th>Email</th>
             <th>New Password</th>
             <th>Account Type</th>
-            <th>Confirm</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {allUsers.map((user) => (
-            <UserRow key={user._id} userInfo={user} />
+            <UserRow key={user.id} userInfo={user} />
           ))}
         </tbody>
       </table>
-
-      {/* {createUserModal && (
-        <>
-          <div className="overlay" onClick={toggleCreateUserModal} />
-          <div className="modal-content2">
-            <CreateUser toggleModal={toggleCreateUserModal} isAdmin={true} />
-          </div>
-        </>
-      )} */}
     </>
   );
 }
