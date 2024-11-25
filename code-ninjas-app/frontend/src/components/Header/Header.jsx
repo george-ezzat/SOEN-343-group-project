@@ -85,7 +85,6 @@ function Header() {
         <Link to="/" exact className="desktopMenuListItem">Home</Link>
         <Link to="/delivery" className="desktopMenuListItem">Start a Delivery</Link>
         <Link to="/tracking" className="desktopMenuListItem">Tracking Your Order</Link>
-        <Link to="/product_purchase" className="desktopMenuListItem">Buy a Product</Link>
         <Link to="/aboutus" className="desktopMenuListItem">About Us</Link>
         {isAdmin && (
           <Link to="/adminview" className="desktopMenuListItem">Admin Management</Link>
