@@ -8,6 +8,7 @@ import Payment from './components/ProductPurchase/PaymentForm.jsx'
 import TransactionApproved from './components/ProductPurchase/TransactionApproved.jsx'
 import GetQuotePage from './components/QuotePage/GetQuotePage'
 import AdminView from './components/Admin/AdminView.jsx'
+import Delivery from './components/Delivery/Delivery.jsx'
 // import ModifyUsers from '../pages/ModifyUsers.tsx'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path='/transactionapproved' element={<TransactionApproved />} />
           <Route path="/get-quote" element={<GetQuotePage />} />
           <Route path='/adminview' element={<AdminView />} />
+          <Route path='/delivery' element={<Delivery />} />
           {/* <Route path='/modifyusers' element={<ModifyUsers />} /> */}
         </Routes>
       </BrowserRouter>
