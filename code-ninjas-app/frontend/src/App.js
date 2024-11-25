@@ -9,9 +9,11 @@ import TransactionApproved from './components/ProductPurchase/TransactionApprove
 import GetQuotePage from './components/QuotePage/GetQuotePage'
 import AdminView from './components/Admin/AdminView.jsx'
 import Delivery from './components/Delivery/Delivery.jsx'
-// import ModifyUsers from '../pages/ModifyUsers.tsx'
+import ModifyUsers from './components/Admin/ModifyUsers.jsx'
+import ModifyOrders from './components/Admin/ModifyOrders.jsx'
 
 function App() {
+
   return (
     <div className="App">
        <BrowserRouter>
@@ -25,9 +27,10 @@ function App() {
           <Route path="/get-quote" element={<GetQuotePage />} />
           <Route path='/adminview' element={<AdminView />} />
           <Route path='/delivery' element={<Delivery />} />
-          {/* <Route path='/modifyusers' element={<ModifyUsers />} /> */}
+          <Route path='/modifyusers' element={<ModifyUsers />} />
+          <Route path='/modifyorders' element={<ModifyOrders />} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> 
     </div>
   );
 }
