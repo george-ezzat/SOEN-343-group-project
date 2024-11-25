@@ -1,5 +1,4 @@
 .header-container{
-.header-container{
     display: flex;
     justify-content: space-between;
     justify-content: space-between;
@@ -181,7 +180,6 @@
     margin-left: 10px;
 }
 
-.SignupBtn:hover,.contactus:hover {
 .SignupBtn:hover,.contactus:hover {
     background-color: #0D98BA;
     color: #FFFEE0;
