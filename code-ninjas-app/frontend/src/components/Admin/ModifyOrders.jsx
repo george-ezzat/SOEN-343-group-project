@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase.js';
-import { collection, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import React, { useState, useEffect } from "react";
+import { db } from "../../firebase.js";
+import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import Header from "../Header/Header";
 import "../Header/Header.css";
-import './AdminPage.css'; 
+import "./AdminPage.css";
 
 const ModifyOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -12,12 +12,26 @@ const ModifyOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const ordersCollection = collection(db, 'deliveries');
+        const ordersCollection = collection(db, "deliveries");
         const querySnapshot = await getDocs(ordersCollection);
-        const ordersData = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
+
+        // Map documents into desired structure excluding names
+        const ordersData = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            startLocation: data?.pickup?.location || "Unknown",
+            endLocation: data?.dropoff?.location || "Unknown",
+            packageHeight: data?.dimensions?.height || "0",
+            packageLength: data?.dimensions?.length || "0",
+            packageWidth: data?.dimensions?.width || "0",
+            packageWeight: parseFloat(data?.weight || "0").toFixed(2), 
+            shippingType: data?.shippingType || "Unknown",
+            pickupName: data?.pickup?.name,
+            dropoffName: data?.dropoff?.name,
+          };
+        });
+
         setOrders(ordersData);
       } catch (error) {
         console.error("Error fetching orders: ", error);
@@ -30,12 +44,10 @@ const ModifyOrders = () => {
   // Handle input change
   const handleInputChange = (e, orderId) => {
     const { name, value } = e.target;
-    
-    setOrders(prevOrders =>
-      prevOrders.map(order =>
-        order.id === orderId
-          ? { ...order, [name]: value } 
-          : order
+
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order.id === orderId ? { ...order, [name]: value } : order
       )
     );
   };
@@ -43,10 +55,22 @@ const ModifyOrders = () => {
   // Update Firestore document
   const handleModify = async (orderId) => {
     try {
-      const orderToModify = orders.find(order => order.id === orderId);
-      console.log("Updating Order:", orderToModify);
-      const orderDocRef = doc(db, 'deliveries', orderId);
-      await updateDoc(orderDocRef, orderToModify);
+      const orderToModify = orders.find((order) => order.id === orderId);
+      const orderDocRef = doc(db, "deliveries", orderId);
+
+      const updateData = {
+        pickup: { location: orderToModify.startLocation, name: orderToModify.pickupName },
+        dropoff: { location: orderToModify.endLocation, name: orderToModify.dropoffName },
+        dimensions: {
+          height: orderToModify.packageHeight,
+          length: orderToModify.packageLength,
+          width: orderToModify.packageWidth,
+        },
+        weight: orderToModify.packageWeight,
+        shippingType: orderToModify.shippingType,
+      };
+
+      await updateDoc(orderDocRef, updateData);
       alert(`Order with ID: ${orderId} updated successfully!`);
     } catch (error) {
       console.error("Error updating order: ", error);
@@ -54,15 +78,14 @@ const ModifyOrders = () => {
     }
   };
 
-  // Delete Firestore document
   const handleDelete = async (orderId) => {
     const confirmDelete = window.confirm(`Are you sure you want to delete the order with ID: ${orderId}?`);
     if (!confirmDelete) return;
-    
+
     try {
-      const orderDocRef = doc(db, 'deliveries', orderId);
+      const orderDocRef = doc(db, "deliveries", orderId);
       await deleteDoc(orderDocRef);
-      setOrders(orders.filter(order => order.id !== orderId));
+      setOrders(orders.filter((order) => order.id !== orderId));
       alert(`Deleted order with ID: ${orderId}`);
     } catch (error) {
       console.error("Error deleting order: ", error);
@@ -128,6 +151,8 @@ const ModifyOrders = () => {
                   <input
                     type="number"
                     name="packageLength"
+                    min="0"
+                    max="274"
                     value={order.packageLength}
                     onChange={(e) => handleInputChange(e, order.id)}  
                   />
@@ -136,6 +161,8 @@ const ModifyOrders = () => {
                   <input
                     type="number"
                     name="packageWidth"
+                    min="0"
+                    max="274"
                     value={order.packageWidth}
                     onChange={(e) => handleInputChange(e, order.id)}  
                   />
@@ -144,6 +171,9 @@ const ModifyOrders = () => {
                   <input
                     type="number"
                     name="packageWeight"
+                    min="0"
+                    max="68"
+                    step="0.01"
                     value={order.packageWeight}
                     onChange={(e) => handleInputChange(e, order.id)} 
                   />
