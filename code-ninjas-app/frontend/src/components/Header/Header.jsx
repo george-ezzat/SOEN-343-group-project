@@ -86,6 +86,7 @@ function Header() {
         <Link to="/delivery" className="desktopMenuListItem">Start a Delivery</Link>
         <Link to="/tracking" className="desktopMenuListItem">Tracking Your Order</Link>
         <Link to="/aboutus" className="desktopMenuListItem">About Us</Link>
+        <Link to="/get-quote" className="desktopMenuListItem">Get a Quote</Link>
         {isAdmin && (
           <Link to="/adminview" className="desktopMenuListItem">Admin Management</Link>
         )}

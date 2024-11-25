@@ -38,8 +38,8 @@ function GetQuotePage() {
       const volume = widthMeters * lengthMeters * heightMeters;
   
       // Set arbitrary factors for cost calculation
-      const weightFactor = 10; // Cost per kg
-      const volumeFactor = 1000; // Cost per cubic meter
+      const weightFactor = 8; // Cost per kg
+      const volumeFactor = 2500; // Cost per cubic meter
   
       // Final cost calculation
       return (weight * weightFactor + volume * volumeFactor).toFixed(2);
