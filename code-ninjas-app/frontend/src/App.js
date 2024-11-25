@@ -8,7 +8,8 @@ import Payment from './components/ProductPurchase/PaymentForm.jsx'
 import TransactionApproved from './components/ProductPurchase/TransactionApproved.jsx'
 import AdminView from './components/Admin/AdminView.jsx'
 import Delivery from './components/Delivery/Delivery.jsx'
-// import ModifyUsers from '../pages/ModifyUsers.tsx'
+import ModifyUsers from './components/Admin/ModifyUsers.jsx'
+import ModifyOrders from './components/Admin/ModifyOrders.jsx'
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           <Route path='/transactionapproved' element={<TransactionApproved />} />
           <Route path='/adminview' element={<AdminView />} />
           <Route path='/delivery' element={<Delivery />} />
-          {/* <Route path='/modifyusers' element={<ModifyUsers />} /> */}
+          <Route path='/modifyusers' element={<ModifyUsers />} />
+          <Route path='/modifyorders' element={<ModifyOrders />} />
         </Routes>
       </BrowserRouter>
     </div>
