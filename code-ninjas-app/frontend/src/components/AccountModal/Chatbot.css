@@ -1,25 +1,31 @@
 .chat-modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  right: 0;
+  width: 350px; 
+  height: calc(100vh - 60px);
+  background-color: rgba(0, 0, 0, 0); 
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column; 
+  justify-content: flex-end; 
   z-index: 1000;
+  padding: 10px;
 }
 
+/* Modal style */
 .chat-modal {
   background-color: #fff;
-  width: 300px;
-  padding: 20px;
+  width: 100%;
+  height: 100%;
+  max-width: 350px; /* Restrict maximum width */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
 }
 
+/* Close button */
 .close-chat {
   position: absolute;
   top: 10px;
@@ -30,24 +36,31 @@
   cursor: pointer;
 }
 
+/* Content area for chat messages */
 .chat-content {
+  flex-grow: 1; /* Take up all available space */
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 10px;
+  overflow-y: auto; /* Enable scroll if messages overflow */
 }
 
+/* Chat area for messages */
 .chat-area {
-  height: 200px;
+  flex-grow: 1;
   background-color: #f0f0f0;
   border-radius: 5px;
   padding: 10px;
   overflow-y: auto;
 }
 
+/* Placeholder for initial chat prompt */
 .placeholder {
   color: #888;
 }
 
+/* Style for individual messages */
 .chat-message {
   padding: 10px;
   margin: 5px 0;
@@ -56,15 +69,49 @@
   word-wrap: break-word;
 }
 
+/* User's message style */
 .user-message {
   background-color: white;
   color: black;
   align-self: flex-end;
-  margin-left: auto;  
+  margin-left: auto; 
+  text-align: right; 
+  padding: 10px;
+  width: fit-content;  
 }
 
 .bot-message {
   background-color: #e0e0e0;
   color: #333;
   align-self: flex-start;
+  text-align: left; 
+}
+
+.message-input {
+  display: flex;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  align-items: center;
+}
+
+.message-input input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.message-input button {
+  margin-left: 10px;
+  padding: 8px 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.message-input button:hover {
+  background-color: #45a049;
 }
