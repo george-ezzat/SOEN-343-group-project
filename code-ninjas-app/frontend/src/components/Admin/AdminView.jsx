@@ -26,12 +26,8 @@ export default function AdminView() {
                 <button className="buttonContainer" onClick={()=>{NavigateTo('modifyusers')}}>
                     <Link to="/modifyusers" className="centeredText">Modify Users</Link>
                 </button>
-
-                <button className="buttonContainer" onClick={()=>{NavigateTo('modifycars')}}>
-                    <Link to="/modifycars" className="centeredText">Modify Cars</Link>
-                </button>
-                <button className="buttonContainer" onClick={()=>{NavigateTo('modifyreservations')}}>
-                    <Link to="/modifyreservations" className="centeredText">Modify Reservations</Link>
+                <button className="buttonContainer" onClick={()=>{NavigateTo('modifyorders')}}>
+                    <Link to="/modifyorders" className="centeredText">Modify Orders</Link>
                 </button>
                 {/* This creates a link on the page that will route 
             to the specified element, CreateUser.tsx, page and will display the 

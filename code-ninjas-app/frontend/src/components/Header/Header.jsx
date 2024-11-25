@@ -8,7 +8,7 @@ import './Header.css';
 import AccountModal from '../AccountModal/LoginModal';
 import SignUpModal from '../AccountModal/SignUpModal';
 import ChatModal from '../AccountModal/Chatbot';
-import { db } from '../../firebase.js';  // Import your Firestore instance
+import { db } from '../../firebase.js';
 
 function Header() {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
