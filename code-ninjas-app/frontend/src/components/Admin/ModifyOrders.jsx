@@ -20,15 +20,15 @@ const ModifyOrders = () => {
           const data = doc.data();
           return {
             id: doc.id,
-            startLocation: data?.pickup?.location || "Unknown",
-            endLocation: data?.dropoff?.location || "Unknown",
-            packageHeight: data?.dimensions?.height || "0",
-            packageLength: data?.dimensions?.length || "0",
-            packageWidth: data?.dimensions?.width || "0",
-            packageWeight: parseFloat(data?.weight || "0").toFixed(2), 
-            shippingType: data?.shippingType || "Unknown",
-            pickupName: data?.pickup?.name,
-            dropoffName: data?.dropoff?.name,
+            startLocation: data.startLocation || "Unknown",
+            endLocation: data.endLocation || "Unknown",
+            packageHeight: data.packageHeight || "0",
+            packageLength: data.packageLength || "0",
+            packageWidth: data.packageWidth || "0",
+            packageWeight: parseFloat(data.packageWeight || "0").toFixed(2), 
+            shippingType: data.shippingType || "Unknown",
+            nameOfSender: data.nameOfSender || "Unknown",
+            nameOfRecipient: data.nameOfRecipient || "Unknown",
           };
         });
 
@@ -59,15 +59,15 @@ const ModifyOrders = () => {
       const orderDocRef = doc(db, "deliveries", orderId);
 
       const updateData = {
-        pickup: { location: orderToModify.startLocation, name: orderToModify.pickupName },
-        dropoff: { location: orderToModify.endLocation, name: orderToModify.dropoffName },
-        dimensions: {
-          height: orderToModify.packageHeight,
-          length: orderToModify.packageLength,
-          width: orderToModify.packageWidth,
-        },
-        weight: orderToModify.packageWeight,
+        startLocation: orderToModify.startLocation,
+        endLocation: orderToModify.endLocation,
+        packageHeight: orderToModify.packageHeight,
+        packageLength: orderToModify.packageLength,
+        packageWidth: orderToModify.packageWidth,
+        packageWeight: orderToModify.packageWeight,
         shippingType: orderToModify.shippingType,
+        nameOfSender: orderToModify.nameOfSender,
+        nameOfRecipient: orderToModify.nameOfRecipient,
       };
 
       await updateDoc(orderDocRef, updateData);
@@ -103,7 +103,9 @@ const ModifyOrders = () => {
             <tr>
               <th>Order ID</th>
               <th>Start Location</th>
+              <th>Sender</th>
               <th>End Location</th>
+              <th>Recipient</th>
               <th>Package Height (cm)</th>
               <th>Package Length (cm)</th>
               <th>Package Width (cm)</th>
@@ -134,8 +136,24 @@ const ModifyOrders = () => {
                 <td className="fieldInputs">
                   <input
                     type="text"
+                    name="sender"
+                    value={order.nameOfSender}
+                    onChange={(e) => handleInputChange(e, order.id)} 
+                  />
+                </td>
+                <td className="fieldInputs">
+                  <input
+                    type="text"
                     name="endLocation"
                     value={order.endLocation}
+                    onChange={(e) => handleInputChange(e, order.id)} 
+                  />
+                </td>
+                <td className="fieldInputs">
+                  <input
+                    type="text"
+                    name="recipient"
+                    value={order.nameOfRecipient}
                     onChange={(e) => handleInputChange(e, order.id)} 
                   />
                 </td>
