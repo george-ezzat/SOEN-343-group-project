@@ -6,11 +6,6 @@ import "./Delivery.css";
 import Header from "../Header/Header";
 
 export default function Delivery() {
-  /*const [pickup, setPickup] = useState({ location: '', name: '' });
-  const [dropoff, setDropoff] = useState({ location: '', name: '' });
-  const [dimensions, setDimensions] = useState({ length: '', width: '', height: '' });
-  const [weight, setWeight] = useState('');
-  const [shippingType, setShippingType] = useState('free');*/
 
   const [formData, setFormData] = useState({
     startLocation: '',
@@ -60,36 +55,6 @@ export default function Delivery() {
       alert('Failed to create delivery');
     }
   };
-
-  /*const handlePlaceChanged = (setLocation) => {
-    return (autocomplete) => {
-      const place = autocomplete.getPlace();
-      if (place && place.formatted_address) {
-        setLocation(place.formatted_address);
-      } else {
-        console.error('No formatted address found for this place.');
-      }
-    };
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const delivery = {
-      pickup,
-      dropoff,
-      dimensions,
-      weight,
-      shippingType,
-    };
-
-    try {
-        const docRef = await addDoc(collection(db, 'deliveries'), delivery);
-        console.log('Delivery created with ID:', docRef.id);
-        setDeliveryResponse({ id: docRef.id, ...delivery });
-    } catch (error) {
-        console.error('Error creating delivery:', error);
-    }
-  };*/
 
   return (
     <>
