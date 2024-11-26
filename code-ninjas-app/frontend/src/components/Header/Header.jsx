@@ -9,13 +9,14 @@ import AccountModal from '../AccountModal/LoginModal';
 import SignUpModal from '../AccountModal/SignUpModal';
 import ChatModal from '../AccountModal/Chatbot';
 import { db } from '../../firebase.js';
+import { useAuth } from '../AuthProvider';
 
 function Header() {
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { isAdmin } = useAuth();
 
   useEffect(() => {
     const auth = getAuth();
@@ -26,15 +27,13 @@ function Header() {
           const userRef = doc(db, "users", user.uid);  
           const userDoc = await getDoc(userRef);
           if (userDoc.exists()) {
-            const userData = userDoc.data();
-            setIsAdmin(userData.isAdmin || false); 
+            // const userData = userDoc.data();
           }
         } catch (error) {
           console.error("Error fetching user data: ", error);
         }
       } else {
         setUser(null);
-        setIsAdmin(false); 
       }
     });
   
@@ -45,7 +44,6 @@ function Header() {
     const auth = getAuth();
     signOut(auth).then(() => {
       setUser(null);
-      setIsAdmin(false);
     }).catch((error) => {
       console.error('Error signing out: ', error);
     });

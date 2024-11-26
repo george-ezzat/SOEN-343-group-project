@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import "./Home.css";
 import Header from "../Header/Header";
+import AutocompleteInput from '../AutocompleteInput';
+import { useAuth } from '../AuthProvider';
 
 export default function Home() {
+  const [formData, setFormData] = useState({
+    startLocation: '',
+    endLocation: ''
+  });
+
+  const { currentUser } = useAuth();
+
+  const handlePlaceSelected = (locationType, address) => {
+    setFormData(prevState => ({
+      ...prevState,
+      [locationType]: address
+    }));
+  };
+
+  const handleContinue = (e) => {
+    if (!currentUser) {
+      e.preventDefault();
+      alert('You must be logged in to start a delivery');
+    }
+  }
 
   return (
     <>
@@ -15,18 +37,26 @@ export default function Home() {
         <div className='delivery-section'>
           <h2>Start your Delivery</h2>
             <div className='input-container'>
-                <input
-                  type="text"
+              <div className='input-box'>
+                <AutocompleteInput
                   placeholder="Pick-up Location"
-                  className='input-box'
+                  locationType="startLocation"
+                  onPlaceSelected={handlePlaceSelected}
+                  initialValue={formData.startLocation}
+                  className="home-page-input"
                 />
-                <input
-                  type="text"
-                  placeholder="Drop-off Destination"
-                  className='input-box'
+              </div>
+              <div className="input-box">
+                <AutocompleteInput
+                  placeholder="Drop-off Location"
+                  locationType="endLocation"
+                  onPlaceSelected={handlePlaceSelected}
+                  initialValue={formData.endLocation}
+                  className="home-page-input"
                 />
+              </div>
             </div>
-          <Link to="/delivery">
+          <Link to="/delivery" state={{ formData }} onClick={handleContinue}>
             <button className='SignupBtn'>Continue</button>
           </Link>
         </div>
