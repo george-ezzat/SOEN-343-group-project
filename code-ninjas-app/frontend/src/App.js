@@ -6,6 +6,7 @@ import AboutUs from './components/AboutUs/AboutUs.jsx'
 import Purchase from './components/ProductPurchase/ProductPurchase.jsx'
 import Payment from './components/ProductPurchase/PaymentForm.jsx'
 import TransactionApproved from './components/ProductPurchase/TransactionApproved.jsx'
+import GetQuotePage from './components/QuotePage/GetQuotePage'
 import AdminView from './components/Admin/AdminView.jsx'
 import DeliveryPage from './components/Delivery/Delivery.jsx'
 import ModifyUsers from './components/Admin/ModifyUsers.jsx'
@@ -26,6 +27,7 @@ function App() {
           <Route path='/product_purchase' element={<Purchase />} />
           <Route path='/payment' element={<Payment />} />
           <Route path='/transactionapproved' element={<TransactionApproved />} />
+          <Route path="/get-quote" element={<GetQuotePage />} />
           <Route path='/adminview' element={<ProtectedRoute element={<AdminView />} adminOnly />} />
           <Route path='/delivery' element={<ProtectedRoute element={<DeliveryPage />} />} />
           <Route path='/modifyusers' element={<ProtectedRoute element={<ModifyUsers />} adminOnly />} />
