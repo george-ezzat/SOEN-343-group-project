@@ -48,6 +48,16 @@ const CarRentalPayment = () => {
     
   }
 
+  function handleReset() {
+    // Reset all form fields
+    setCardNumber("");
+    setCardholderName("");
+    setbillingAdress("");
+    setExpiryDate(""); 
+    setCVV(""); 
+  }
+  
+
   return (
     <div className="background_payment">
       <h1>Payment Information</h1>
@@ -138,7 +148,7 @@ const CarRentalPayment = () => {
         <div className="button-container">
           <input type="submit" value="Make Payment" className="submit" onClick={(e) => {e.preventDefault();
             if (validateForm())transactionapproved()}}/>
-          <input type="reset" value="Reset" className="reset" />
+          <input type="reset" value="Reset" className="reset" onClick={handleReset} />
         </div>
       </form>
     </div>

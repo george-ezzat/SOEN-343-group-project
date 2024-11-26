@@ -145,6 +145,7 @@ export default function Delivery() {
                 value={formData.packageWeight}
                 min="0"
                 max="68"
+                step="0.1"
                 onChange={handleChange}
                 required
               />
