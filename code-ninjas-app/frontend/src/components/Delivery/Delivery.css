@@ -12,7 +12,9 @@
 }
 
 .delivery-form-container h2 {
+  color:#0D98BA;
   margin-bottom: 20px;
+  font-size: 2em;
 }
 
 form {
@@ -42,6 +44,29 @@ form {
   box-sizing: border-box;
   margin-bottom: 10px;
   font-size: 1.2em;
+}
+
+.separator {
+  width: 80%;
+  max-width: 700px;
+  border-bottom: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+.bold-label {
+  font-weight: bold;
+}
+
+.ship-details-container {
+  display:flex;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 600px;
+  margin-bottom: 15px;
+}
+
+.ship-details-container .input-container {
+  width: 48%;
 }
 
 input[type=number]::-webkit-outer-spin-button,
@@ -84,17 +109,12 @@ input[type=number]::-webkit-inner-spin-button {
   background-color: #0D98BA;
 }
 
-.delivery-response {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  width: 100%;
-  text-align: left;
+.error {
+  border: 1px solid red;
 }
 
-.delivery-response pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
+.error-message {
+  color:red;
+  font-size: 0.9em;
+  margin-top: 5px;
 }
