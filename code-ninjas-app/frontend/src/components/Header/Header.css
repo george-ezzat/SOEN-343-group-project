@@ -25,6 +25,56 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-left: 20px;
+}
+
+.site-title {
+    margin-right: auto;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #0D98BA ;
+    margin-left: -15px;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+    margin-left: 50px;
+}
+
+.desktopMenuListItem{
+    margin: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+    color: #000000;
+    padding: 5px;
+    position: relative;
+}
+
+.desktopMenuListItem::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #0D98BA;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.desktopMenuListItem:hover::after {
+    visibility: visible;
+    transform: scaleX(1);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 10px;
     margin-left: 100px;
 }
 
@@ -74,57 +124,7 @@
     display: flex;
     gap: 10px;
     margin-left: auto;
-    margin-right: 100px;
-    margin-left: 100px;
-}
-
-.site-title {
-    margin-right: auto;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #0D98BA ;
-    margin-left: -15px;
-}
-
-.menu {
-    display: flex;
-    gap: 20px;
-    margin-left: 50px;
-}
-
-.desktopMenuListItem{
-    margin: 1rem;
-    cursor: pointer;
-    text-decoration: none;
-    font-weight: 500;
-    color: #000000;
-    padding: 5px;
-    position: relative;
-}
-
-.desktopMenuListItem::after{
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #0D98BA;
-    visibility: hidden;
-    transform: scaleX(0);
-    transition: all 0.3s ease-in-out;
-}
-
-.desktopMenuListItem:hover::after {
-    visibility: visible;
-    transform: scaleX(1);
-}
-
-.auth-buttons {
-    display: flex;
-    gap: 10px;
-    margin-left: auto;
-    margin-right: 100px;
+    margin-right: 20px;
 }
 
 .navTitleName{

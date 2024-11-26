@@ -12,7 +12,9 @@
 }
 
 .delivery-form-container h2 {
+  color:#0D98BA;
   margin-bottom: 20px;
+  font-size: 2em;
 }
 
 form {
@@ -41,7 +43,32 @@ form {
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 10px;
-  font-size: 1.2em;
+  font-size: 1em;
+}
+
+.separator {
+  width: 80%;
+  max-width: 700px;
+  border-bottom: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+.bold-label {
+  font-weight: bold;
+}
+
+.ship-details-container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 600px;
+  margin-bottom: 15px;
+}
+
+.ship-details-container .input-container {
+  width: 100%;
 }
 
 input[type=number]::-webkit-outer-spin-button,
@@ -81,20 +108,51 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .submit-btn:hover {
-  background-color: #0D98BA;
+  background-color: #0B7A99;
 }
 
-.delivery-response {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+.autocomplete-input-container {
   width: 100%;
-  text-align: left;
+  margin-bottom: 20px;
 }
 
-.delivery-response pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
+.autocomplete-input-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.package-details-label {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.package-input {
+  font-size: 1em;
+  text-align: center;
+}
+
+.small-input {
+  width: 200px;
+}
+
+.long-input {
+  width: 100%;
+}
+
+.package-details-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.error {
+  border-color: red;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
 }
