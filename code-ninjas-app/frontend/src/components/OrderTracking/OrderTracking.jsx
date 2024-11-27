@@ -37,10 +37,10 @@ const Tracking = () => {
     return (
         <>
             <Header />
-            <div className="tracking-container">
+            <div>
                 <h1>Order Tracking</h1>
                 <form onSubmit={handleTrack}>
-                    <div>
+                    <div className="tracking-container">
                         <input
                             type="text"
                             className="outlined_fields"
@@ -50,7 +50,7 @@ const Tracking = () => {
                             maxLength={20}
                             required
                         />
-                        <input type="submit" value="Track" />
+                        <input type="submit" value="Track ->" className="Track_btn"/>
                     </div>
                 </form>
 
