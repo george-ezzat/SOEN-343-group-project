@@ -1,0 +1,49 @@
+/* Styling for the form container */
+form div {
+    display: flex; /* Positions elements side-by-side */
+    align-items: center; /* Aligns vertically */
+    gap: 10px; /* Adds space between elements */
+}
+
+/* Styling for the input fields */
+.outlined_fields {
+    padding: 8px;
+    font-size: 16px;
+    width: 250px; /* Adjust width as needed */
+    max-width: 100%; /* Ensures it doesn't exceed container width */
+    box-sizing: border-box; /* Includes padding in width calculation */
+}
+
+/* Styling for the submit button */
+input[type="submit"] {
+    padding: 5px 10px; 
+    font-size: 14px; 
+    background-color: #0D98BA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.order-details {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 35%; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.order-details h2 {
+    text-align: center;  
+    font-size: 24px;    
+    margin-bottom: 15px; 
+}
+
+.order-details p {
+    text-align: left; 
+    font-size: 16px;  
+}
