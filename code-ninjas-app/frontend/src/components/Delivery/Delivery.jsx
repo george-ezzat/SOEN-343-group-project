@@ -199,7 +199,7 @@ export default function DeliveryPage() {
           <label className='package-details-label'>Package Details</label>
           <div className='package-details-row'>
           <div className="input-container">
-            <label className="package-label">Package Length</label>
+            <label className="package-label">Package Length (cm)</label>
             <input
               type="text"
               name="packageLength"
@@ -214,7 +214,7 @@ export default function DeliveryPage() {
             {errors.packageLength && <span className="error-message">{errors.packageLength}</span>}
           </div>
           <div className="input-container">
-            <label className="package-label">Package Width</label>
+            <label className="package-label">Package Width (cm)</label>
             <input
               type="text"
               name="packageWidth"
@@ -229,7 +229,7 @@ export default function DeliveryPage() {
             {errors.packageWidth && <span className="error-message">{errors.packageWidth}</span>}
           </div>
           <div className="input-container">
-          <label className="package-label">Package Height (cm) </label>
+          <label className="package-label">Package Height (cm)</label>
           <input
             type="text"
             name="packageHeight"
