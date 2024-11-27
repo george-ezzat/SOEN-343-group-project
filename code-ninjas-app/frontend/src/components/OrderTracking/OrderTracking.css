@@ -1,9 +1,5 @@
 /* Styling for the form container */
-form div {
-    display: flex; /* Positions elements side-by-side */
-    align-items: center; /* Aligns vertically */
-    gap: 10px; /* Adds space between elements */
-}
+
 
 /* Styling for the input fields */
 .outlined_fields {

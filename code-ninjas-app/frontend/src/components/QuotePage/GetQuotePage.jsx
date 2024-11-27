@@ -123,7 +123,7 @@ function GetQuotePage() {
               required
             />
           </div>
-          <button type="submit">Get Quote</button>
+          <button type="submit" className="quote-btn">Get Quote</button>
         </form>
         {quote && (
           <div className="quote-result">
