@@ -25,7 +25,7 @@ const ModifyOrders = () => {
             packageHeight: data.packageHeight || "0",
             packageLength: data.packageLength || "0",
             packageWidth: data.packageWidth || "0",
-            packageWeight: parseFloat(data.packageWeight || "0").toFixed(2), 
+            packageWeight: parseFloat(data.packageWeight || "0"), 
             shippingType: data.shippingType || "Unknown",
             nameOfSender: data.nameOfSender || "Unknown",
             nameOfRecipient: data.nameOfRecipient || "Unknown",
@@ -191,7 +191,6 @@ const ModifyOrders = () => {
                     name="packageWeight"
                     min="0"
                     max="68"
-                    step="0.01"
                     value={order.packageWeight}
                     onChange={(e) => handleInputChange(e, order.id)} 
                   />
