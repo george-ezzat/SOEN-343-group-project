@@ -5,10 +5,11 @@ import "./Delivery.css";
 import Header from "../Header/Header";
 import Delivery from '../../models/Delivery.js';
 import AutocompleteInput from '../AutocompleteInput.jsx';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function DeliveryPage() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const initialFormData = location.state?.formData || {
     startLocation: '',
@@ -127,6 +128,7 @@ export default function DeliveryPage() {
         shippingType: 'free',
       });
       setErrors({});
+      navigate('/payment', { state: { formData } });
     } catch (error) {
       console.error('Error creating delivery:', error);
       alert('Failed to create delivery');
@@ -281,7 +283,7 @@ export default function DeliveryPage() {
             </div>
           </div>
           <div className="separator"></div>
-          <button type="submit" className="submit-btn">Create Delivery</button>
+          <button type="submit" className="submit-btn">Continue</button>
         </form>
       </div>
     </>
