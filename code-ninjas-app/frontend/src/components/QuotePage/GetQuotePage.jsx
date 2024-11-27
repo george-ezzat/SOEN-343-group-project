@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import Header from "../Header/Header"
 import './GetQuotePage.css'
+import AutocompleteInput from '../AutocompleteInput'
+import { calculateCost } from '../../models/costCalculator'
 
 function GetQuotePage() {
     const [formData, setFormData] = useState({
-      origin: '',
-      destination: '',
+      startLocation: '',
+      endLocation: '',
       weight: '',
       width: '',
       length: '',
@@ -13,7 +15,14 @@ function GetQuotePage() {
     });
   
     const [quote, setQuote] = useState(null);
-  
+
+    const handlePlaceSelected = (locationType, address) => {
+      setFormData(prevState => ({
+        ...prevState,
+        [locationType]: address
+      }));
+    };
+
     const handleInputChange = (e) => {
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
@@ -21,29 +30,42 @@ function GetQuotePage() {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      // Example formula for a quote: weight * volume factor * distance factor
-      const estimatedQuote = calculateQuote(formData);
-      setQuote(estimatedQuote);
+      calculateDistance(formData.startLocation, formData.endLocation);
     };
-  
-    const calculateQuote = (data) => {
-      const { weight, width, length, height } = data;
-  
-      // Convert dimensions from inches to meters (1 inch = 0.0254 meters)
-      const widthMeters = width * 0.0254;
-      const lengthMeters = length * 0.0254;
-      const heightMeters = height * 0.0254;
-  
-      // Calculate volume in cubic meters
-      const volume = widthMeters * lengthMeters * heightMeters;
-  
-      // Set arbitrary factors for cost calculation
-      const weightFactor = 8; // Cost per kg
-      const volumeFactor = 2500; // Cost per cubic meter
-  
-      // Final cost calculation
-      return (weight * weightFactor + volume * volumeFactor).toFixed(2);
-    };
+
+    const calculateDistance = (origin, destination) => {
+        const service = new window.google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+            {
+                origins: [origin],
+                destinations: [destination],
+                travelMode: window.google.maps.TravelMode.DRIVING,
+            },
+            (response, status) => {
+                if (status === "OK") {
+                    const distanceInMeters = response.rows[0].elements[0].distance.value;
+                    const distanceInKm = distanceInMeters / 1000;
+                    const { weightCost, dimensionCost, distanceCost } = calculateCost(
+                        parseFloat(formData.weight),
+                        parseFloat(formData.length),
+                        parseFloat(formData.width),
+                        parseFloat(formData.height),
+                        distanceInKm
+                    );
+                    const totalCost = weightCost + dimensionCost + distanceCost;
+                    setQuote({
+                        weightCost,
+                        dimensionCost,
+                        distanceCost,
+                        totalCost,
+                        distance: distanceInKm
+                    });
+                } else {
+                  console.error("Error calculating distance", status);
+                }
+            }
+        );
+      };
   
     return (
      <div>
@@ -52,26 +74,22 @@ function GetQuotePage() {
         <h1>Get a Quote</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="origin">Origin:</label>
-            <input
-              type="text"
-              id="origin"
-              name="origin"
-              value={formData.origin}
-              onChange={handleInputChange}
-              placeholder="Enter origin city"
+            <label htmlFor="startLocation">Pick-up Location:</label>
+            <AutocompleteInput
+              locationType="startLocation"
+              onPlaceSelected={handlePlaceSelected}
+              initialValue={formData.startLocation}
+              className="home-page-input"
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="destination">Destination:</label>
-            <input
-              type="text"
-              id="destination"
-              name="destination"
-              value={formData.destination}
-              onChange={handleInputChange}
-              placeholder="Enter destination city"
+            <label htmlFor="endLocation">Drop-off Location:</label>
+            <AutocompleteInput
+              locationType="endLocation"
+              onPlaceSelected={handlePlaceSelected}
+              initialValue={formData.endLocation}
+              className="home-page-input"
               required
             />
           </div>
@@ -88,38 +106,38 @@ function GetQuotePage() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="width">Width (in):</label>
+            <label htmlFor="width">Width (cm):</label>
             <input
               type="number"
               id="width"
               name="width"
               value={formData.width}
               onChange={handleInputChange}
-              placeholder="Enter width in inches"
+              placeholder="Enter width in cm"
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="length">Length (in):</label>
+            <label htmlFor="length">Length (cm):</label>
             <input
               type="number"
               id="length"
               name="length"
               value={formData.length}
               onChange={handleInputChange}
-              placeholder="Enter length in inches"
+              placeholder="Enter length in cm"
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="height">Height (in):</label>
+            <label htmlFor="height">Height (cm):</label>
             <input
               type="number"
               id="height"
               name="height"
               value={formData.height}
               onChange={handleInputChange}
-              placeholder="Enter height in inches"
+              placeholder="Enter height in cm"
               required
             />
           </div>
@@ -128,12 +146,16 @@ function GetQuotePage() {
         {quote && (
           <div className="quote-result">
             <h2>Estimated Quote</h2>
-            <p>Your estimated cost is: <strong>${quote}</strong></p>
+            <p><strong>Distance:</strong> {quote.distance.toFixed(2)} km</p>
+            <p><strong>Base Cost:</strong> ${quote.distanceCost.toFixed(2)}</p>
+            <p><strong>Weight Cost:</strong> ${quote.weightCost.toFixed(2)}</p>
+            <p><strong>Dimension Cost:</strong> ${quote.dimensionCost.toFixed(2)}</p>
+            <p><strong>Total Cost:</strong> ${quote.totalCost.toFixed(2)}</p>
           </div>
         )}
       </div>
       </div>
     );
-  }
+  };
   
   export default GetQuotePage;
