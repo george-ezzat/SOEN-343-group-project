@@ -88,7 +88,7 @@ function GetQuotePage() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="width">Width (in):</label>
+            <label htmlFor="width">Width (cm):</label>
             <input
               type="number"
               id="width"
@@ -100,7 +100,7 @@ function GetQuotePage() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="length">Length (in):</label>
+            <label htmlFor="length">Length (cm):</label>
             <input
               type="number"
               id="length"
@@ -112,7 +112,7 @@ function GetQuotePage() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="height">Height (in):</label>
+            <label htmlFor="height">Height (cm):</label>
             <input
               type="number"
               id="height"
