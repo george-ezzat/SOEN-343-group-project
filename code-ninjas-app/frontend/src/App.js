@@ -3,7 +3,6 @@ import './App.css';
 import Home from './components/Home/Home.jsx'
 import Tracking from './components/OrderTracking/OrderTracking.jsx'
 import AboutUs from './components/AboutUs/AboutUs.jsx'
-import Payment from './components/ProductPurchase/PaymentForm.jsx'
 import TransactionApproved from './components/ProductPurchase/TransactionApproved.jsx'
 import GetQuotePage from './components/QuotePage/GetQuotePage'
 import AdminView from './components/Admin/AdminView.jsx'
@@ -12,7 +11,7 @@ import ModifyUsers from './components/Admin/ModifyUsers.jsx'
 import ModifyOrders from './components/Admin/ModifyOrders.jsx'
 import { AuthProvider } from './components/AuthProvider.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
-
+import PaymentPage from './components/PaymentPage/PaymentPage.jsx';
 
 function App() {
   return (
@@ -23,7 +22,7 @@ function App() {
           <Route index element={<Home />} />{' '}
           <Route path='/aboutus' element={<AboutUs />} />
           <Route path='/tracking' element={<Tracking />} />
-          <Route path='/payment' element={<Payment />} />
+          <Route path='/payment' element={<PaymentPage />} />
           <Route path='/transactionapproved' element={<TransactionApproved />} />
           <Route path="/get-quote" element={<GetQuotePage />} />
           <Route path='/adminview' element={<ProtectedRoute element={<AdminView />} adminOnly />} />
