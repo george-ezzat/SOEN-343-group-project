@@ -229,7 +229,7 @@ export default function DeliveryPage() {
             {errors.packageWidth && <span className="error-message">{errors.packageWidth}</span>}
           </div>
           <div className="input-container">
-          <label className="package-label">Package Height</label>
+          <label className="package-label">Package Height (cm) </label>
           <input
             type="text"
             name="packageHeight"
@@ -245,7 +245,7 @@ export default function DeliveryPage() {
           </div>
           </div>
           <div className="input-container">
-            <label className="package-label">Package Weight</label>
+            <label className="package-label">Package Weight (kg)</label>
             <input
               type="number"
               name="packageWeight"
