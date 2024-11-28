@@ -132,12 +132,6 @@ const PaymentPage = () => {
       alert("Please enter the expiry date");
       return false;
     }
-    const today = new Date();
-    const selectedDate = new Date(expiryDate);
-    if (selectedDate < today) {
-        alert("Please enter a valid expiry date");
-        return false;
-    }
     return true;
   };
 
