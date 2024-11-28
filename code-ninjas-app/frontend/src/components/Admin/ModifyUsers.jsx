@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../../firebase.js";
+import FirebaseSingleton from "../../firebase.js";
 import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import "./ModifyUsers.css";
 import Header from "../Header/Header";
@@ -19,6 +19,7 @@ export default function ModifyUsers() {
     const fetchUsers = async () => {
       setLoading(true);
       try {
+        const db = FirebaseSingleton.getFirestore();
         const querySnapshot = await getDocs(collection(db, "users"));
         const usersData = querySnapshot.docs.map((doc) => ({
           id: doc.id, // Firestore document ID
@@ -39,6 +40,7 @@ export default function ModifyUsers() {
   const handleSubmit = async (event, updatedUserInfo) => {
     event.preventDefault();
     try {
+      const db = FirebaseSingleton.getFirestore();
       const userDoc = doc(db, "users", updatedUserInfo.id);
       await updateDoc(userDoc, updatedUserInfo);
       alert("User updated successfully!");
@@ -51,6 +53,7 @@ export default function ModifyUsers() {
   // Delete a user from Firestore
   const deleteUser = async (userInfo) => {
     try {
+      const db = FirebaseSingleton.getFirestore();
       const userDoc = doc(db, "users", userInfo.id);
       await deleteDoc(userDoc);
       alert("User deleted successfully!");

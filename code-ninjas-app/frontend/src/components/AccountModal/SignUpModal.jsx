@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './AccountModal.css';
-import { auth } from '../../firebase';
+import FirebaseSingleton from '../../firebase.js';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const SignUpModal = ({ isOpen, onClose }) => {
@@ -17,6 +17,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
     setSuccessMessage('');
 
     try {
+      const auth = FirebaseSingleton.getAuth();
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
