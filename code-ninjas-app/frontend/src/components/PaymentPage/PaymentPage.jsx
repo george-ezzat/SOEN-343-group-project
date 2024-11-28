@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './PaymentPage.css';
 import Header from '../Header/Header';
 import { calculateCost } from '../../models/costCalculator';
+import { addDelivery } from '../../models/deliveryService';
 
 const PaymentPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { formData } = location.state || {};
 
   const [cardNumber, setCardNumber] = useState("");
@@ -68,12 +70,29 @@ const PaymentPage = () => {
 
   const totalCost = weightCost + dimensionCost + shippingCost + distanceCost;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Handle payment processing logic here
-      alert('Payment successful!');
-      // Navigate to the transaction approved page or show a success message
+        const newDelivery = {
+            startLocation,
+            nameOfSender,
+            endLocation,
+            nameOfRecipient,
+            packageLength,
+            packageWidth,
+            packageHeight,
+            packageWeight,
+            shippingType,
+            totalCost,
+        }
+        
+        const result = await addDelivery(newDelivery);
+        if (result.success) {
+            alert('Payment successful! Your order has been placed.');
+            navigate('/transactionapproved')
+        } else {
+            alert('An error occurred while processing your payment. Please try again.');
+        }
     }
   };
 
