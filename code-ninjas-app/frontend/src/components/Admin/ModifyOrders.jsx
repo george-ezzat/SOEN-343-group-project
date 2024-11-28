@@ -29,6 +29,7 @@ const ModifyOrders = () => {
             shippingType: data.shippingType || "Unknown",
             nameOfSender: data.nameOfSender || "Unknown",
             nameOfRecipient: data.nameOfRecipient || "Unknown",
+            totalCost: parseFloat(data.totalCost || "0").toFixed(2),
           };
         });
 
@@ -68,6 +69,7 @@ const ModifyOrders = () => {
         shippingType: orderToModify.shippingType,
         nameOfSender: orderToModify.nameOfSender,
         nameOfRecipient: orderToModify.nameOfRecipient,
+        totalCost: orderToModify.totalCost,
       };
 
       await updateDoc(orderDocRef, updateData);
@@ -111,6 +113,7 @@ const ModifyOrders = () => {
               <th>Package Width (cm)</th>
               <th>Package Weight (kg)</th>
               <th>Shipping Type</th>
+              <th>Total Cost</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -206,6 +209,14 @@ const ModifyOrders = () => {
                     <option value="free">free</option>
                     <option value="express">express</option>
                   </select>
+                </td>
+                <td className="fieldInputs">
+                  <input
+                    type="number"
+                    name="totalCost"
+                    value={order.totalCost}
+                    onChange={(e) => handleInputChange(e, order.id)} 
+                  />
                 </td>
                 <td>
                   <button 
