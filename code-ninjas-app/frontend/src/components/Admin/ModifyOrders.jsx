@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FirebaseSingleton from "../../firebase.js";
-import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { observeCollection } from "../../firestoreListener.js";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import Header from "../Header/Header";
 import "../Header/Header.css";
 import "./AdminPage.css";
@@ -8,16 +9,12 @@ import "./AdminPage.css";
 const ModifyOrders = () => {
   const [orders, setOrders] = useState([]);
 
-  // Fetch orders from Firestore
   useEffect(() => {
-    const fetchOrders = async () => {
-      const db = FirebaseSingleton.getFirestore();
-      const querySnapshot = await getDocs(collection(db, "deliveries"));
-      const ordersData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const unsubscribe = observeCollection("deliveries", (ordersData) => {
       setOrders(ordersData);
-    };
+    });
 
-    fetchOrders();
+    return () => unsubscribe();
   }, []);
 
   // Handle input change
