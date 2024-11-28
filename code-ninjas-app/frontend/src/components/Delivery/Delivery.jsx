@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../firebase.js';  // Import your Firestore instance
 import "./Delivery.css";
 import Header from "../Header/Header";
-import Delivery from '../../models/Delivery.js';
 import AutocompleteInput from '../AutocompleteInput.jsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -89,50 +86,15 @@ export default function DeliveryPage() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (Object.values(errors).some(error => error)) {
-      alert('Please fix the errors before submitting');
+      alert('Please fix the errors in the form before submitting.');
       return;
     }
 
-    try {
-      const newDelivery = new Delivery(
-        formData.startLocation,
-        formData.nameOfSender,
-        formData.endLocation,
-        formData.nameOfRecipient,
-        formData.packageLength,
-        formData.packageWidth,
-        formData.packageHeight,
-        formData.packageWeight,
-        formData.shippingType
-      );
-
-      console.log('Creating delivery:', newDelivery);
-
-      const deliveryRef = collection(db, 'deliveries');
-      await addDoc(deliveryRef, newDelivery.toPlainObject());
-      alert('Delivery created successfully!');
-      console.log('Delivery created', newDelivery);
-      setFormData({
-        startLocation: '',
-        nameOfSender: '',
-        endLocation: '',
-        nameOfRecipient: '',
-        packageLength: '',
-        packageWidth: '',
-        packageHeight: '',
-        packageWeight: '',
-        shippingType: 'free',
-      });
-      setErrors({});
-      navigate('/payment', { state: { formData } });
-    } catch (error) {
-      console.error('Error creating delivery:', error);
-      alert('Failed to create delivery');
-    }
+    navigate('/payment', { state: { formData } });
   };
 
   return (
