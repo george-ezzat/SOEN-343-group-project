@@ -4,8 +4,8 @@ import { db } from '../firebase';
 export const addDelivery = async (deliveryData) => {
   try {
     const deliveryRef = collection(db, 'deliveries');
-    await addDoc(deliveryRef, deliveryData);
-    return { success: true };
+    const docRef = await addDoc(deliveryRef, deliveryData);
+    return { success: true, id: docRef.id };
   } catch (error) {
     console.error('Error creating delivery:', error);
     return { success: false, error };
