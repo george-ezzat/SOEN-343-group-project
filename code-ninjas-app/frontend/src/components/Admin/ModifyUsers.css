@@ -9,15 +9,34 @@
 }
 
 #deleteButton{
-    background-color: red;
+    background-color: red; 
+    color: white;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    padding: 12px;
+    outline: none;
+    cursor: pointer;
 }
 
 #updateButton{
     background-color: green;
     color: white;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    padding: 12px;
+    outline: none;
+    cursor: pointer;
 }
 
 .hiddenForm{
    background-color: red;
    display: none;
+}
+
+.choosing_options{
+border: 1px solid #aaa;
+  border-radius: 10px;
+  padding: 12px;
+  outline: none;
+  cursor: pointer;
 }
