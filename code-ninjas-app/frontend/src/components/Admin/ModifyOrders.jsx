@@ -171,7 +171,6 @@ const ModifyOrders = () => {
                     name="packageWeight"
                     min="0"
                     max="68"
-                    step="0.01"
                     value={order.packageWeight}
                     onChange={(e) => handleInputChange(e, order.id)} 
                   />

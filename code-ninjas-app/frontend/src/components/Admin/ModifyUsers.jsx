@@ -8,7 +8,6 @@ import "../Header/Header.css";
 
 export default function ModifyUsers() {
   const [allUsers, setAllUsers] = useState([]);
-  const [createUserModal, setCreateUserModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
   function pageTitle() {
@@ -50,11 +49,6 @@ export default function ModifyUsers() {
     } catch (error) {
       console.error("Error deleting user:", error);
     }
-  };
-
-  // Toggle create user modal
-  const toggleCreateUserModal = () => {
-    setCreateUserModal(!createUserModal);
   };
 
   // User row component
@@ -99,6 +93,7 @@ export default function ModifyUsers() {
           <select
             defaultValue={userInfo.accType}
             onChange={(e) => (updatedUserInfo.accType = e.target.value)}
+            className="choosing_options"
           >
             <option value="admin">Admin</option>
             <option value="customer">Regular Customer</option>
@@ -106,13 +101,13 @@ export default function ModifyUsers() {
         </td>
         <td className="confirmation">
           <button
-            className="submitButton"
+            id="updateButton"
             onClick={(e) => handleSubmit(e, updatedUserInfo)}
           >
             Update
           </button>
           <button
-            className="submitButton"
+            id="deleteButton"
             onClick={() => deleteUser(userInfo)}
           >
             Delete
@@ -136,9 +131,6 @@ export default function ModifyUsers() {
       <Header />
       {pageTitle()}
       <h1>{document.title}</h1>
-      <button className="LogBtn" onClick={toggleCreateUserModal}>
-        Create Account
-      </button>
       <table className="userTable">
         <thead>
           <tr>
