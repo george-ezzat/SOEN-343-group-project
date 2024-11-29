@@ -113,7 +113,7 @@ const ModifyOrders = () => {
               <th>Package Width (cm)</th>
               <th>Package Weight (kg)</th>
               <th>Shipping Type</th>
-              <th>Total Cost ($)</th>
+              <th>Total Cost</th>
               <th>Actions</th>
             </tr>
           </thead>

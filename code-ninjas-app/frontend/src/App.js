@@ -3,7 +3,7 @@ import './App.css';
 import Home from './components/Home/Home.jsx'
 import Tracking from './components/OrderTracking/OrderTracking.jsx'
 import AboutUs from './components/AboutUs/AboutUs.jsx'
-import TransactionApproved from './components/PaymentPage/TransactionApproved.jsx'
+import TransactionApproved from './components/ProductPurchase/TransactionApproved.jsx'
 import GetQuotePage from './components/QuotePage/GetQuotePage'
 import AdminView from './components/Admin/AdminView.jsx'
 import DeliveryPage from './components/Delivery/Delivery.jsx'
