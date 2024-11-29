@@ -5,6 +5,13 @@ import Header from '../Header/Header';
 import { calculateCost } from '../../models/costCalculator';
 import { addDelivery } from '../../models/deliveryService';
 
+const getCurrentMonthYear = () => {
+  const today = new Date();
+  const month = String(today.getMonth() + 2).padStart(2, "0");
+  const year = today.getFullYear();
+  return `${year}-${month}`;
+};
+
 const PaymentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -69,6 +76,14 @@ const PaymentPage = () => {
   );
 
   const totalCost = weightCost + dimensionCost + shippingCost + distanceCost;
+
+  const handleReset = () => {
+    setCardNumber("");
+    setCardholderName("");
+    setBillingAddress("");
+    setExpiryDate("");
+    setCVV("");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -156,7 +171,12 @@ const PaymentPage = () => {
           <h2>Payment Form</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label>Total Cost: ${totalCost.toFixed(2)}</label>
+            <label>Amount</label>
+              <input
+                type="text"
+                value={totalCost.toFixed(2)}
+                readOnly
+              />
             </div>
             <div className="form-group">
               <label>Card Number</label>
@@ -164,6 +184,7 @@ const PaymentPage = () => {
                 type="text"
                 value={cardNumber}
                 onChange={(e) => setCardNumber(e.target.value)}
+                maxLength={16}
                 required
               />
             </div>
@@ -189,9 +210,11 @@ const PaymentPage = () => {
               <label>Expiry Date</label>
               <input
                 type="month"
+                min={getCurrentMonthYear()}
+                placeholder="MM/YY"
+                required
                 value={expiryDate}
                 onChange={(e) => setExpiryDate(e.target.value)}
-                required
               />
             </div>
             <div className="form-group">
@@ -199,11 +222,16 @@ const PaymentPage = () => {
               <input
                 type="text"
                 value={cvv}
+                maxLength={3}
+                placeholder="555"
                 onChange={(e) => setCVV(e.target.value)}
                 required
               />
             </div>
-            <button type="submit" className="submit-btn">Submit Payment</button>
+            <div className='buttons'>
+              <button type="submit" className="submit-btn">Submit Payment</button>
+              <button type="button" className="reset-btn" onClick={handleReset}>Reset </button>
+            </div>
           </form>
         </div>
     </div>

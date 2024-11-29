@@ -69,6 +69,7 @@ const Tracking = () => {
                         <p><b>Package Height:</b> {orderData.packageHeight} cm</p>
                         <p><b>Package Weight:</b> {orderData.packageWeight} kg</p>
                         <p><b>Shipping type:</b> {orderData.shippingType}</p>
+                        <p><b>Total cost:</b> {orderData.totalCost.toFixed(2)} $</p>
                     </div>
                 )}
             </div>
