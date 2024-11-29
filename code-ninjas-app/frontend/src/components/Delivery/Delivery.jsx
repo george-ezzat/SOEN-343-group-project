@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import "./Delivery.css";
 import Header from "../Header/Header";
-import AutocompleteInput from '../AutocompleteInput.jsx';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ComponentFactory from '../ComponentFactory';
 
 export default function DeliveryPage() {
   const location = useLocation();
@@ -108,12 +108,12 @@ export default function DeliveryPage() {
           <div className="ship-details-container">
             <div className='input-container'>
               <div className='input-box long-input'>
-                <AutocompleteInput
-                  placeholder="Pick-up Location"
-                  locationType="startLocation"
-                  onPlaceSelected={handlePlaceSelected}
-                  initialValue={formData.startLocation}
-                />
+                {ComponentFactory.createComponent('AutocompleteInput', {
+                  placeholder: 'Pick-up Location',
+                  locationType: 'startLocation',
+                  onPlaceSelected: handlePlaceSelected,
+                  initialValue: formData.startLocation
+                })}
               </div>
             </div>
             <div className="input-container">
@@ -136,12 +136,12 @@ export default function DeliveryPage() {
           <div className="ship-details-container">
             <div className='input-container'>
               <div className="input-box long-input">
-                <AutocompleteInput
-                  placeholder="Drop-off Location"
-                  locationType="endLocation"
-                  onPlaceSelected={handlePlaceSelected}
-                  initialValue={formData.endLocation}
-                />
+                {ComponentFactory.createComponent('AutocompleteInput', {
+                  placeholder: 'Drop-off Location',
+                  locationType: 'endLocation',
+                  onPlaceSelected: handlePlaceSelected,
+                  initialValue: formData.endLocation
+                })}
             </div>
             </div>
             <div className="input-container">

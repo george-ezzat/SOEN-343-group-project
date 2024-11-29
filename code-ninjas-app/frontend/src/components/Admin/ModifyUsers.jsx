@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../../firebase.js";
-import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import FirebaseSingleton from "../../firebase.js";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { observeCollection } from "../../firestoreListener.js";
 import "./ModifyUsers.css";
 import Header from "../Header/Header";
 import "../Header/Header.css";
@@ -15,29 +16,19 @@ export default function ModifyUsers() {
 
   // Fetch all users from Firestore
   useEffect(() => {
-    const fetchUsers = async () => {
-      setLoading(true);
-      try {
-        const querySnapshot = await getDocs(collection(db, "users"));
-        const usersData = querySnapshot.docs.map((doc) => ({
-          id: doc.id, // Firestore document ID
-          ...doc.data(),
-        }));
-        setAllUsers(usersData);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-        setLoading(false);
-      }
-    };
+    const unsubscribe = observeCollection("users", (usersData) => {
+      setAllUsers(usersData);
+      setLoading(false);
+    });
 
-    fetchUsers();
+    return () => unsubscribe();
   }, []);
 
   // Update a user in Firestore
   const handleSubmit = async (event, updatedUserInfo) => {
     event.preventDefault();
     try {
+      const db = FirebaseSingleton.getFirestore();
       const userDoc = doc(db, "users", updatedUserInfo.id);
       await updateDoc(userDoc, updatedUserInfo);
       alert("User updated successfully!");
@@ -50,6 +41,7 @@ export default function ModifyUsers() {
   // Delete a user from Firestore
   const deleteUser = async (userInfo) => {
     try {
+      const db = FirebaseSingleton.getFirestore();
       const userDoc = doc(db, "users", userInfo.id);
       await deleteDoc(userDoc);
       alert("User deleted successfully!");

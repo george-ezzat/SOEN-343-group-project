@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../firebase.js";
+import FirebaseSingleton from "../../firebase.js";
 import Header from "../Header/Header";
 import "./OrderTracking.css";
 
@@ -19,8 +19,9 @@ const Tracking = () => {
 
         try {
             setError(""); // Clear previous errors
-            const docRef = doc(db, "deliveries", trackingId); 
-            const docSnap = await getDoc(docRef); 
+            const db = FirebaseSingleton.getFirestore();
+            const docRef = doc(db, "deliveries", trackingId);
+            const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
                 setOrderData(docSnap.data()); 

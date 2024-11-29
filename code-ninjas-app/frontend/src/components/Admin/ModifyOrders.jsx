@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../../firebase.js";
-import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import FirebaseSingleton from "../../firebase.js";
+import { observeCollection } from "../../firestoreListener.js";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import Header from "../Header/Header";
 import "../Header/Header.css";
 import "./AdminPage.css";
@@ -8,38 +9,12 @@ import "./AdminPage.css";
 const ModifyOrders = () => {
   const [orders, setOrders] = useState([]);
 
-  // Fetch orders from Firestore
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const ordersCollection = collection(db, "deliveries");
-        const querySnapshot = await getDocs(ordersCollection);
+    const unsubscribe = observeCollection("deliveries", (ordersData) => {
+      setOrders(ordersData);
+    });
 
-        // Map documents into desired structure excluding names
-        const ordersData = querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            startLocation: data.startLocation || "Unknown",
-            endLocation: data.endLocation || "Unknown",
-            packageHeight: data.packageHeight || "0",
-            packageLength: data.packageLength || "0",
-            packageWidth: data.packageWidth || "0",
-            packageWeight: parseFloat(data.packageWeight || "0"), 
-            shippingType: data.shippingType || "Unknown",
-            nameOfSender: data.nameOfSender || "Unknown",
-            nameOfRecipient: data.nameOfRecipient || "Unknown",
-            totalCost: parseFloat(data.totalCost || "0").toFixed(2),
-          };
-        });
-
-        setOrders(ordersData);
-      } catch (error) {
-        console.error("Error fetching orders: ", error);
-      }
-    };
-
-    fetchOrders();
+    return () => unsubscribe();
   }, []);
 
   // Handle input change
@@ -56,6 +31,7 @@ const ModifyOrders = () => {
   // Update Firestore document
   const handleModify = async (orderId) => {
     try {
+      const db = FirebaseSingleton.getFirestore();
       const orderToModify = orders.find((order) => order.id === orderId);
       const orderDocRef = doc(db, "deliveries", orderId);
 
@@ -85,6 +61,7 @@ const ModifyOrders = () => {
     if (!confirmDelete) return;
 
     try {
+      const db = FirebaseSingleton.getFirestore();
       const orderDocRef = doc(db, "deliveries", orderId);
       await deleteDoc(orderDocRef);
       setOrders(orders.filter((order) => order.id !== orderId));

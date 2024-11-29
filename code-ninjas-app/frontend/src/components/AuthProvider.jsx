@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { auth } from '../firebase';
+import FirebaseSingleton from '../firebase.js';
 
 const AuthContext = React.createContext();
 
@@ -13,6 +13,7 @@ export function AuthProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    const auth = FirebaseSingleton.getAuth();
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user);
       setIsAdmin(user?.email === 'admin@codeninjas.com')

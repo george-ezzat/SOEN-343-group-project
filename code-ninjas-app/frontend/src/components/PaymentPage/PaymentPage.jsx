@@ -89,7 +89,7 @@ const PaymentPage = () => {
         const result = await addDelivery(newDelivery);
         if (result.success) {
             alert('Payment successful! Your order has been placed.');
-            navigate('/transactionapproved')
+            navigate('/transactionapproved', { state: { orderId: result.id } });
         } else {
             alert('An error occurred while processing your payment. Please try again.');
         }

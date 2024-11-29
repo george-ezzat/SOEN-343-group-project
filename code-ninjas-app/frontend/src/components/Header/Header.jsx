@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { getDoc, doc } from 'firebase/firestore';
 import logo from '../../Images/Logo.webp';
 import AI from '../../Images/bot_4712066.png'
@@ -8,7 +8,7 @@ import './Header.css';
 import AccountModal from '../AccountModal/LoginModal';
 import SignUpModal from '../AccountModal/SignUpModal';
 import ChatModal from '../AccountModal/Chatbot';
-import { db } from '../../firebase.js';
+import FirebaseSingleton from '../../firebase.js';
 import { useAuth } from '../AuthProvider';
 
 function Header() {
@@ -19,7 +19,8 @@ function Header() {
   const { isAdmin } = useAuth();
 
   useEffect(() => {
-    const auth = getAuth();
+    const auth = FirebaseSingleton.getAuth();
+    const db = FirebaseSingleton.getFirestore();
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUser(user);
@@ -41,7 +42,7 @@ function Header() {
   }, []);
 
   const handleLogout = () => {
-    const auth = getAuth();
+    const auth = FirebaseSingleton.getAuth();
     signOut(auth).then(() => {
       setUser(null);
     }).catch((error) => {

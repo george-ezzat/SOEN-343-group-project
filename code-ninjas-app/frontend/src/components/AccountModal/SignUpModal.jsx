@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './AccountModal.css';
-import { auth, db } from '../../firebase'; 
+import FirebaseSingleton from '../../firebase.js';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 
@@ -20,6 +20,8 @@ const SignUpModal = ({ isOpen, onClose }) => {
     setSuccessMessage('');
 
     try {
+      const auth = FirebaseSingleton.getAuth();
+      const db = FirebaseSingleton.getFirestore();
       // Create the user in Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
