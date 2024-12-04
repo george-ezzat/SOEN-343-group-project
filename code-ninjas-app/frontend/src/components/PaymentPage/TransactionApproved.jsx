@@ -12,6 +12,10 @@ const TransactionApproved = () => {
     navigate("/"); 
   };
 
+  const handleLeaveReview = () => {
+    navigate('/feedback')
+  }
+
   return (
     <div>
       <Header />
@@ -26,6 +30,7 @@ const TransactionApproved = () => {
           </p>
         )}
         <button onClick={handleExit}>Exit</button> 
+        <button onClick={handleLeaveReview}>Leave a Review</button>
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import ModifyOrders from './components/Admin/ModifyOrders.jsx'
 import { AuthProvider } from './components/AuthProvider.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import PaymentPage from './components/PaymentPage/PaymentPage.jsx';
+import FeedbackForm from './components/Feedback/FeedbackForm.jsx';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path='/delivery' element={<ProtectedRoute element={<DeliveryPage />} />} />
           <Route path='/modifyusers' element={<ProtectedRoute element={<ModifyUsers />} adminOnly />} />
           <Route path='/modifyorders' element={<ProtectedRoute element={<ModifyOrders />} adminOnly />} />
+          <Route path='/feedback' element={<FeedbackForm />} />
         </Routes>
        </AuthProvider>
       </BrowserRouter> 
